@@ -1,0 +1,18 @@
+$colorBgContainer: #ffffff; // 请根据主题色实际值替换
+$borderRadiusLG: 10px; // 请根据主题值实际替换
+.layout {
+  width: 80%; 
+  height: 90vh;// 80% of the viewport width
+  margin-top: 5vh; // 5% of the viewport height
+  margin-left: auto;
+  margin-right: auto;
+}
+.content {
+  overflow: auto;
+  text-align: center;
+  .content-inner {
+    text-align: center;
+    background: $colorBgContainer;
+    border-radius: $borderRadiusLG;
+  }
+}
