@@ -1,45 +1,51 @@
-import React, {useEffect} from 'react';
-import {Avatar, List, theme} from 'antd';
-import {fetchFiles, selectParams} from '../../services/fileSearchApi';
+import React, {useEffect, useState} from 'react';
+import {Avatar, List} from 'antd';
+import {fetchFiles} from '../../services/fileSearchApi';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../slices';
 
-const data = [
-  {
-    title: 'Ant Design Title 1'
-  },
-  {
-    title: 'Ant Design Title 2'
-  },
-  {
-    title: 'Ant Design Title 3'
-  },
-  {
-    title: 'Ant Design Title 4'
-  }
-];
+const AfterSearchResults: React.FC = () => {
+  const params = useSelector((state: RootState) => state.fetchFiles);
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-const SearchResults: React.FC = () => {
-  const {
-    token: {colorBgContainer}
-  } = theme.useToken();
   useEffect(() => {
-    fetchFiles(selectParams);
-  }, []);
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const result = await fetchFiles(params);
+        setData(result.files);
+      } catch (err) {
+        setError('qingqiuchucuola');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [params]);
+
   return (
-    <List
-      style={{backgroundColor: colorBgContainer}}
-      itemLayout="horizontal"
-      dataSource={data}
-      renderItem={(item, index) => (
-        <List.Item>
-          <List.Item.Meta
-            avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
-            title={<a href="https://ant.design">{item.title}</a>}
-            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-          />
-        </List.Item>
-      )}
-    />
+    <div>
+      <List
+        itemLayout="horizontal"
+        dataSource={data}
+        loading={loading}
+        renderItem={(item) => (
+          <List.Item>
+            <List.Item.Meta
+              avatar={<Avatar src="https://placekitten.com/40/40" />} // 默认图标
+              title={<a href={item.link_url}>{item.fname}</a>}
+              description={`Updated at ${new Date(item.mtime * 1000).toLocaleString()} by ${item.creator.name}`}
+            />
+          </List.Item>
+        )}
+      />
+      {error && <p>Error: {error}</p>}
+    </div>
   );
 };
 
-export default SearchResults;
+export default AfterSearchResults;
