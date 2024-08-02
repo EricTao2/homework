@@ -157,7 +157,7 @@ const fileTypeMapping = {
   resh: ['resh'],
   uof: ['uof', 'uot3', 'uott3'],
   cad2d: ['dxf', 'dwg', 'dgn', 'exb'],
-  folder: ['folder', 'sharefolder'],
+  folder: ['folder', 'sharefolder']
 };
 export interface DataType {
   id?: string;
