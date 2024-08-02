@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, List} from 'antd';
+import {Layout} from 'antd';
 import styles from './styles/App.module.scss'; // 引入 Sass 文件
 import SearchTop from './components/SearchTop';
 

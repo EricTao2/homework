@@ -41,7 +41,7 @@ const SearchTop: React.FC = () => {
       placement="bottom"
       dropdownRender={() => (
         <Card title={<ButtonInput />} style={{width: '79.5vw'}}>
-          <BeforeSearchTemp results={[]} />
+          <BeforeSearchTemp />
         </Card>
       )}
     >
