@@ -11,7 +11,7 @@ interface DataType {
 }
 const columns: TableColumnsType<DataType> = [
   {
-    title: 'Name',
+    title: '文件类型(可多选)',
     dataIndex: 'name',
     render: (text: string) => <span dangerouslySetInnerHTML={{__html: text}} />
   }
@@ -32,28 +32,8 @@ const ButtonInput = () => {
 
   const rowSelection: TableRowSelection<DataType> = {
     selectedRowKeys,
-    onChange: onSelectChange,
-    selections: [
-      Table.SELECTION_ALL,
-      Table.SELECTION_INVERT,
-      Table.SELECTION_NONE,
-      {
-        key: 'odd',
-        text: 'Select Odd Row',
-        onSelect: (changeableRowKeys) => {
-          const newSelectedRowKeys = changeableRowKeys.filter((_, index) => index % 2 !== 0);
-          setSelectedRowKeys(newSelectedRowKeys);
-        }
-      },
-      {
-        key: 'even',
-        text: 'Select Even Row',
-        onSelect: (changeableRowKeys) => {
-          const newSelectedRowKeys = changeableRowKeys.filter((_, index) => index % 2 === 0);
-          setSelectedRowKeys(newSelectedRowKeys);
-        }
-      }
-    ]
+    hideSelectAll: true,
+    onChange: onSelectChange
   };
 
   return (
@@ -69,8 +49,8 @@ const ButtonInput = () => {
           <Dropdown
             trigger={['click']}
             open={selectedTypesVisible}
-            onOpenChange={() => setSelectedTypesVisible(true)}
-            placement="bottomRight"
+            onOpenChange={setSelectedTypesVisible}
+            placement="bottomLeft"
             dropdownRender={() => (
               <Table
                 className="custom-table"
@@ -78,7 +58,7 @@ const ButtonInput = () => {
                 columns={columns}
                 dataSource={processedData}
                 pagination={false}
-                showHeader={false}
+                showHeader={true}
               />
             )}
           >
