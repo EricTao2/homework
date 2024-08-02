@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {Card, Dropdown, Input, theme} from 'antd';
 import '../styles/searchTop.scss';
-import BeforeSearchTemp from './searchAll/BeforeSearchTemp';
+import BeforeSearchTemp from './searchAll/BeforeSearchHistory';
 import ButtonInput from './searchAll/ButtonInput';
 import {debounce} from 'lodash';
 
