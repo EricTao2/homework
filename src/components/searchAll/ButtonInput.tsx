@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Button, Dropdown, Radio, Select, Table, Tag} from 'antd';
+import {Button, Dropdown, Radio, Table} from 'antd';
 import '../../styles/ButtonInput.module.scss';
 import type {TableColumnsType, TableProps} from 'antd';
 import {processedData} from '../../assets/fileTypeData';

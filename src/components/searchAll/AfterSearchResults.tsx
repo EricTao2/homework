@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Avatar, List, theme} from 'antd';
-import {fetchFiles, selectParams} from '../services/fileSearchApi';
+import {fetchFiles, selectParams} from '../../services/fileSearchApi';
 
 const data = [
   {

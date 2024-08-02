@@ -3,13 +3,14 @@
 interface FetchFilesParams {
   offset: number;
   count: number;
-  sort_by: string;
-  start_time?: number; // 根据时间搜索
+  sort_by: string; // 根据时间搜索
+  start_time?: number;
   end_time?: number;
-  include_exts?: string;
+  include_exts?: string; //根据文件类型搜索
   include_ext_groups?: string;
-  searchname?: string;
-  filter_user_id?: number;
+  searchname?: string; //根据输入框搜索
+  filter_user_id?: number; //根据创建人搜索
+  scope?: number; //根据文件位置搜索
 }
 
 // 定义返回数据的接口
