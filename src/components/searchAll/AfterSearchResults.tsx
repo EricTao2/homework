@@ -30,6 +30,7 @@ const AfterSearchResults: React.FC = () => {
   return (
     <div>
       <List
+        style={{height: '50vh' /* 固定高度，你可以根据需要调整 */, overflow: 'auto' /* 允许滚动 */}}
         itemLayout="horizontal"
         dataSource={data}
         loading={loading}

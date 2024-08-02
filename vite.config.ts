@@ -7,7 +7,7 @@ export default defineConfig(({command, mode}) => {
     // 开发服务器配置
     return {
       plugins: [react()],
-      base: '/zhangjufang1/dev/search/',
+      base: '/zhangjufang/dev/search/',
       server: {
         host: true
       }
@@ -16,7 +16,7 @@ export default defineConfig(({command, mode}) => {
     // 正式构建配置
     return {
       plugins: [react()],
-      base: '/zhangjufang1/prod/search/',
+      base: '/zhangjufang/prod/search/',
       server: {
         host: true
       }
