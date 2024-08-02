@@ -1,12 +1,14 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {Card, Dropdown, Input, theme} from 'antd';
 import '../styles/searchTop.scss';
-import BeforeSearchTemp from './searchAll/BeforeSearchHistory';
+import AfterSearchResults from './searchAll/AfterSearchResults';
 import ButtonInput from './searchAll/ButtonInput';
 import {debounce} from 'lodash';
-
-// let index = 0;
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '../store';
+import {setFetchFilesParams} from '../slices/fetchFilesSlice';
 const SearchTop: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
   const inputRef = useRef<string>('');
   const {
     token: {colorBgContainer}
@@ -18,10 +20,8 @@ const SearchTop: React.FC = () => {
   };
 
   const handleSearch = (value: string) => {
-    // 处理搜索逻辑
-    console.log('搜索:', value);
+    dispatch(setFetchFilesParams({searchname: value}));
   };
-
   // 使用 useCallback 包裹 debounce 函数以防止每次渲染都重新创建
   const debouncedSearch = useCallback(
     debounce((value: string) => handleSearch(value), 300),
@@ -41,7 +41,7 @@ const SearchTop: React.FC = () => {
       placement="bottom"
       dropdownRender={() => (
         <Card title={<ButtonInput />} style={{width: '79.5vw'}}>
-          <BeforeSearchTemp results={[]} />
+          <AfterSearchResults />
         </Card>
       )}
     >
