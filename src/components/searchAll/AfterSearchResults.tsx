@@ -15,7 +15,7 @@ function getFileExtension(filename: string): string {
   return parts.length > 1 ? parts[parts.length - 1] : 'default';
 }
 function findFileType(extension: string): string {
-  for (const [key, extensions] of Object.entries(fileTypeMapping)) {
+  for (const [key, extensions] of fileTypeMapping) {
     if ((extensions as string[]).includes(extension)) {
       return key;
     }
@@ -36,6 +36,7 @@ const AfterSearchResults: React.FC = () => {
         const result = await fetchFiles(params);
         setData(result.files);
       } catch (err) {
+        console.log("err", err)
         setError('qingqiuchucuola');
       } finally {
         setLoading(false);

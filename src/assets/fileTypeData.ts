@@ -160,7 +160,8 @@ export const fileTypeMapping: Map<string, string[]> = new Map(
     resh: ['resh'],
     uof: ['uof', 'uot3', 'uott3'],
     cad2d: ['dxf', 'dwg', 'dgn', 'exb'],
-    folder: ['folder', 'sharefolder']
+    folder: ['folder', 'sharefolder'],
+    link: ['link']
   })
 );
 

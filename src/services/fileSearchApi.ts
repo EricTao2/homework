@@ -19,8 +19,15 @@ export function fetchFiles(selectParams: FetchFilesParams): Promise<any> {
     group_sources: 'yundoc,kmwiki'
   };
 
+  let newSelectParams = {};
+  Object.entries(selectParams).forEach(([key, value]) => {
+    if (value !== undefined) {
+      newSelectParams = {...newSelectParams, [key]: value};
+    }
+  });
+
   // 合并默认参数和动态参数
-  const params = {...defaultParams, ...selectParams};
+  const params = {...defaultParams, ...newSelectParams};
   const queryString = new URLSearchParams(params as any).toString(); // 需要将 params 转换为 string
   const url = `https://365.kdocs.cn/3rd/drive/api/v6/search/files?${queryString}`;
 
@@ -59,18 +66,3 @@ export function fetchFiles(selectParams: FetchFilesParams): Promise<any> {
       throw error;
     });
 }
-
-// 使用示例
-export const selectParams: FetchFilesParams = {
-  offset: 0,
-  count: 10,
-  sort_by: 'mtime',
-  start_time: 1717257600,
-  end_time: 1722614399,
-  include_exts: 'otl',
-  include_ext_groups: 'otl',
-  searchname: '',
-  filter_user_id: -1606716157
-};
-
-fetchFiles(selectParams);
