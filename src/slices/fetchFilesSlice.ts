@@ -4,8 +4,8 @@ import {FetchFilesParams} from '../types/fileSearchType';
 
 const initialState: FetchFilesParams = {
   offset: 0,
-  count: 5,
-  sort_by: 'time',
+  count: 20,
+  sort_by: 'time'
 };
 
 const fetchFilesSlice = createSlice({
