@@ -4,4 +4,5 @@ export default interface DropdownSelectDataType {
   icon?: string;
   title: string;
   checked?: boolean;
+  getStateValue?(): {};
 }

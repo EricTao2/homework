@@ -1,4 +1,4 @@
-import {processedTimeData} from '../../../assets/timeData';
+import {processedCreatorData} from '../../../assets/creatorData';
 import DropdownSelectDataType from '../../../assets/SelectDataType';
 import type {TableColumnsType} from 'antd';
 import {useDispatch} from 'react-redux';
@@ -6,28 +6,28 @@ import {AppDispatch} from '../../../store';
 import {Table} from 'antd';
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {setFetchFilesParams} from '../../../slices/fetchFilesSlice';
-interface TimeSelectComponentProps {
+
+interface CreatorSelectComponentProps {
   checkedIcon: string;
-  setSelectedTimesVisible: Dispatch<SetStateAction<boolean>>;
+  setSelectedCreatorVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-
-export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, setSelectedTimesVisible}) => {
+export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({checkedIcon, setSelectedCreatorVisible}) => {
   const dispatch: AppDispatch = useDispatch();
-  const [_, setSelectTimeData] = useState(processedTimeData);
-  const [selectedTime, setSelectedTime] = useState('all');
+  const [_, setSelectCreatorData] = useState(processedCreatorData);
+  const [selectedCreator, setSelectedCreator] = useState('all');
 
-  const updateSelectedTime = (name: string) => {
-    if (selectedTime === name) return;
-    setSelectedTime(() => {
+  const updateSelectedCreator = (name: string) => {
+    if (selectedCreator === name) return;
+    setSelectedCreator(() => {
       return name;
     });
   };
 
   useEffect(() => {
-    setSelectTimeData((prev) => {
+    setSelectCreatorData((prev) => {
       const newSate = prev.map((item) => {
-        if (selectedTime === item.name) {
+        if (selectedCreator === item.name) {
           item.checked = true;
           dispatch(setFetchFilesParams(item.getStateValue ? item.getStateValue() : {}));
         } else {
@@ -37,15 +37,15 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
       });
       return newSate;
     });
-  }, [selectedTime]);
+  }, [selectedCreator]);
 
   const columns: TableColumnsType<DropdownSelectDataType> = [
     {
       dataIndex: 'name',
       render: (_, record: DropdownSelectDataType) => {
-        let res = `<i style="margin-left: 2em"></i> ${record.title}`;
+        let res = `<div style="float: left; margin-left: 2em;margin-right: 1em">${record.icon}</div> ${record.title}`;
         if (record.checked) {
-          res = `${checkedIcon} <i style="margin-left: 1em"></i> ${record.title}`;
+          res = `${checkedIcon} <div style="float: left; margin-left: 1em;margin-right: 1em">${record.icon}</div> <div style="float: left;">${record.title}</div>`;
         }
         return <span dangerouslySetInnerHTML={{__html: res}} />;
       },
@@ -53,7 +53,8 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
         return {
           onClick: () => {
             record.checked = !record.checked;
-            updateSelectedTime(record.name);
+            updateSelectedCreator(record.name);
+            setSelectedCreatorVisible(false);
           }
         };
       }
@@ -62,10 +63,10 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
 
   return (
     <Table
-    style={{cursor: 'pointer'}}
+      style={{cursor: 'pointer'}}
       className="custom-table"
       columns={columns}
-      dataSource={processedTimeData}
+      dataSource={processedCreatorData}
       pagination={false}
       showHeader={false}
     />

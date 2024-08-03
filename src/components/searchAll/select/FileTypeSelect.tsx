@@ -66,9 +66,9 @@ export const FileTypeSelect: React.FC<FileTypeSelectComponentProps> = ({checkedI
       title: '文件类型(可多选)',
       dataIndex: 'name',
       render: (_, record: DropdownSelectDataType) => {
-        let res = `<i style="margin-left: 2em">${record.icon}</i> ${record.title}`;
+        let res = `<div style="float: left; margin-left: 2em;margin-right: 0.5em">${record.icon}</div> ${record.title}`;
         if (record.checked) {
-          res = `${checkedIcon} <i style="margin-left: 1em">${record.icon}</i> ${record.title}`;
+          res = `${checkedIcon} <div style="float: left; margin-left: 1em;margin-right: 0.5em">${record.icon}</div> ${record.title}`;
         }
         return <span dangerouslySetInnerHTML={{__html: res}} />;
       },
@@ -88,6 +88,7 @@ export const FileTypeSelect: React.FC<FileTypeSelectComponentProps> = ({checkedI
 
   return (
     <Table
+      style={{cursor: 'pointer'}}
       className="custom-table"
       columns={columns}
       dataSource={processedFileTypeData}

@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react';
 import {Button, Dropdown, Radio, Table} from 'antd';
 import '../../styles/ButtonInput.module.scss';
-import type {TableColumnsType, TableProps} from 'antd';
 import {FileTypeSelect} from './select/FileTypeSelect';
 import {TimeSelect} from './select/TimeSelect';
+import {ScopeSelect} from './select/ScopeSelect';
+import {CreatorSelect} from './select/CreatorSelect';
 
-type TableRowSelection<T> = TableProps<T>['rowSelection'];
+
 const checkedIcon = `<svg style="float: left" width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke-width="1.5">
                <g id="group-0" stroke="currentColor" fill="currentColor">
                  <path d="M2.5 7.38775L6.68824 11.2933C6.81053 11.401 6.99639 11.3913 7.10689 11.2716L13.4215 4.5" stroke-linecap="round" stroke-linejoin="miter" fill="none" vector-effect="non-scaling-stroke"></path>
@@ -15,8 +16,9 @@ const checkedIcon = `<svg style="float: left" width="1em" height="1em" viewBox="
 const ButtonInput = () => {
   const [position, setPosition] = useState('search_file_content');
   const [selectedTypesVisible, setSelectedTypesVisible] = useState(false);
-  const [selectedCreatorsVisible, setSelectedCreatorsVisible] = useState(false);
+  const [selectedCreatorVisible, setSelectedCreatorVisible] = useState(false);
   const [selectedTimesVisible, setSelectedTimesVisible] = useState(false);
+  const [selectedScopeVisible, setSelectedScopeVisible] = useState(false);
 
   return (
     <div>
@@ -39,17 +41,11 @@ const ButtonInput = () => {
           </Dropdown>
           <Dropdown
             trigger={['click']}
-            open={selectedCreatorsVisible}
-            onOpenChange={() => setSelectedCreatorsVisible(true)}
-            placement="bottom"
+            open={selectedCreatorVisible}
+            onOpenChange={setSelectedCreatorVisible}
+            placement="bottomLeft"
             dropdownRender={() => (
-              <Table
-                rowSelection={rowSelection}
-                columns={columns}
-                // dataSource={data}
-                pagination={false}
-                showHeader={false}
-              />
+              <CreatorSelect checkedIcon={checkedIcon} setSelectedCreatorVisible={setSelectedCreatorVisible} />
             )}
           >
             <Button size="small">创建者</Button>
@@ -64,6 +60,18 @@ const ButtonInput = () => {
             )}
           >
             <Button size="small">时间</Button>
+          </Dropdown>
+
+          <Dropdown
+            trigger={['click']}
+            open={selectedScopeVisible}
+            onOpenChange={setSelectedScopeVisible}
+            placement="bottomLeft"
+            dropdownRender={() => (
+              <ScopeSelect checkedIcon={checkedIcon} setSelectedScopeVisible={setSelectedScopeVisible} />
+            )}
+          >
+            <Button size="small">位置</Button>
           </Dropdown>
         </div>
       </div>

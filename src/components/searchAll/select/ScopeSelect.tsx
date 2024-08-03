@@ -1,4 +1,4 @@
-import {processedTimeData} from '../../../assets/timeData';
+import {processedScopeData} from '../../../assets/scopeData';
 import DropdownSelectDataType from '../../../assets/SelectDataType';
 import type {TableColumnsType} from 'antd';
 import {useDispatch} from 'react-redux';
@@ -6,28 +6,27 @@ import {AppDispatch} from '../../../store';
 import {Table} from 'antd';
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {setFetchFilesParams} from '../../../slices/fetchFilesSlice';
-interface TimeSelectComponentProps {
+interface ScopeSelectComponentProps {
   checkedIcon: string;
-  setSelectedTimesVisible: Dispatch<SetStateAction<boolean>>;
+  setSelectedScopeVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-
-export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, setSelectedTimesVisible}) => {
+export const ScopeSelect: React.FC<ScopeSelectComponentProps> = ({checkedIcon, setSelectedScopeVisible}) => {
   const dispatch: AppDispatch = useDispatch();
-  const [_, setSelectTimeData] = useState(processedTimeData);
-  const [selectedTime, setSelectedTime] = useState('all');
+  const [_, setSelectScopeData] = useState(processedScopeData);
+  const [selectedScope, setSelectedScope] = useState('all');
 
-  const updateSelectedTime = (name: string) => {
-    if (selectedTime === name) return;
-    setSelectedTime(() => {
+  const updateSelectedScope = (name: string) => {
+    if (selectedScope === name) return;
+    setSelectedScope(() => {
       return name;
     });
   };
 
   useEffect(() => {
-    setSelectTimeData((prev) => {
+    setSelectScopeData((prev) => {
       const newSate = prev.map((item) => {
-        if (selectedTime === item.name) {
+        if (selectedScope === item.name) {
           item.checked = true;
           dispatch(setFetchFilesParams(item.getStateValue ? item.getStateValue() : {}));
         } else {
@@ -37,7 +36,7 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
       });
       return newSate;
     });
-  }, [selectedTime]);
+  }, [selectedScope]);
 
   const columns: TableColumnsType<DropdownSelectDataType> = [
     {
@@ -49,11 +48,12 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
         }
         return <span dangerouslySetInnerHTML={{__html: res}} />;
       },
-      onCell: (record: DropdownSelectDataType) => {
+      onCell: (record: DropdownSelectDataType, index) => {
         return {
           onClick: () => {
             record.checked = !record.checked;
-            updateSelectedTime(record.name);
+            updateSelectedScope(record.name);
+            setSelectedScopeVisible(false);
           }
         };
       }
@@ -62,10 +62,10 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
 
   return (
     <Table
-    style={{cursor: 'pointer'}}
+      style={{cursor: 'pointer'}}
       className="custom-table"
       columns={columns}
-      dataSource={processedTimeData}
+      dataSource={processedScopeData}
       pagination={false}
       showHeader={false}
     />
