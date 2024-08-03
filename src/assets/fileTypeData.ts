@@ -1,4 +1,4 @@
-const fileTypeMapping = {
+export const fileTypeMapping = {
   img: [
     'jpg',
     'jpeg',
@@ -157,7 +157,8 @@ const fileTypeMapping = {
   resh: ['resh'],
   uof: ['uof', 'uot3', 'uott3'],
   cad2d: ['dxf', 'dwg', 'dgn', 'exb'],
-  folder: ['folder', 'sharefolder']
+  folder: ['folder', 'sharefolder'],
+  link: ['link']
 };
 export interface DataType {
   id?: string;
@@ -168,15 +169,11 @@ export interface DataType {
 
 export const fileTypedata: DataType[] = [
   {
-    icon: `<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke-width="1.5">
-                 <g id="group-0" stroke="currentColor" fill="currentColor">
-                   <path d="M2.5 7.38775L6.68824 11.2933C6.81053 11.401 6.99639 11.3913 7.10689 11.2716L13.4215 4.5" stroke-linecap="round" stroke-linejoin="miter" fill="none" vector-effect="non-scaling-stroke"></path>
-                 </g>
-               </svg>`,
+    icon: `<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke-width="1.5"><g id="group-0" stroke="currentColor" fill="currentColor"><path d="M10.25 6.25003H5.75M13.25 5.12132V12.75C13.25 13.5784 12.5784 14.25 11.75 14.25H4.25C3.42157 14.25 2.75 13.5784 2.75 12.75V3.25C2.75 2.42157 3.42157 1.75 4.25 1.75H9.87868C10.2765 1.75 10.658 1.90804 10.9393 2.18934L12.8107 4.06066C13.092 4.34196 13.25 4.7235 13.25 5.12132Z" stroke-linecap="round" stroke-linejoin="miter" fill="none" vector-effect="non-scaling-stroke"></path></g></svg>`,
     title: '不限类型'
   },
   {
-    name: 'dbt',
+    name: 'otl',
     icon: `<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none">
                  <path d="M0 2C0 0.895431 0.895431 0 2 0H14C15.1046 0 16 0.895431 16 2V14C16 15.1046 15.1046 16 14 16H2C0.895431 16 0 15.1046 0 14V2Z" fill="#9147F0"></path>
                  <path d="M0 14H16C16 15.1046 15.1046 16 14 16H2C0.895431 16 0 15.1046 0 14Z" fill="#7C33DE"></path>
