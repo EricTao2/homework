@@ -5,7 +5,7 @@ import {FetchFilesParams} from '../types/fileSearchType';
 const initialState: FetchFilesParams = {
   offset: 0,
   count: 5,
-  sort_by: 'time'
+  sort_by: 'time',
 };
 
 const fetchFilesSlice = createSlice({
@@ -13,6 +13,7 @@ const fetchFilesSlice = createSlice({
   initialState,
   reducers: {
     setFetchFilesParams(state, action: PayloadAction<Partial<FetchFilesParams>>) {
+      console.log("neReduxState:", {...state, ...action.payload})
       return {...state, ...action.payload};
     },
     resetFetchFilesParams() {
