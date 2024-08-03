@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // 定义请求参数的接口
 export interface FetchFilesParams {
-  offset: number;
-  count: number;
+  offset?: number;
+  count?: number;
+  search_file_content: boolean;
+  search_file_name: boolean;
   sort_by: string; // 根据时间搜索
   start_time?: number;
   end_time?: number;

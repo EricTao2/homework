@@ -6,6 +6,7 @@ import {RootState} from '../../slices';
 import {fileIcon} from '../../assets/fileIcon';
 import {fileTypeMapping} from '../../assets/fileTypeData';
 import MoreOptionsButton from '../MoreOptionsButton';
+import {FixedSizeList} from 'react-window';
 const highlightEmTags = (inputString: string) => {
   // 使用正则表达式找到所有 <em> 标签，并添加内联样式
   return inputString.replace(/<em>(.*?)<\/em>/g, '<em style="background-color: yellow;">$1</em>');
@@ -36,7 +37,7 @@ const AfterSearchResults: React.FC = () => {
         const result = await fetchFiles(params);
         setData(result.files);
       } catch (err) {
-        console.log("err", err)
+        console.log('err', err);
         setError('qingqiuchucuola');
       } finally {
         setLoading(false);
@@ -47,57 +48,54 @@ const AfterSearchResults: React.FC = () => {
   }, [params]);
 
   return (
-    <div>
-      <List
-        style={{
-          height: '50vh' /* 固定高度，你可以根据需要调整 */,
-          overflow: 'auto' /* 允许滚动 */,
-          scrollbarWidth: 'thin'
-        }}
-        itemLayout="horizontal"
-        dataSource={data}
-        loading={loading}
-        renderItem={(item) => {
-          const fileExtension = getFileExtension(item.fname);
-          const fileType = findFileType(fileExtension);
-          return (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<div dangerouslySetInnerHTML={{__html: fileIcon[fileType]}} />} // 默认图标
-                title={
-                  <a href={item.link_url}>
-                    {params.searchname != undefined && item.highlight?.file_name ? (
-                      <div dangerouslySetInnerHTML={{__html: highlightEmTags(item.highlight.file_name[0])}} />
-                    ) : (
-                      item.fname
-                    )}
-                  </a>
-                }
-                description={
-                  <Row>
-                    <Col span={6}>
-                      {item.extra._open != undefined
-                        ? `你在 ${item.extra._open}打开过`
-                        : item.path != '与我共享'
-                          ? `你在 ${item.extra._mtime}更新过`
-                          : `${item.creator.name} 在 ${item.extra._mtime}更新过`}
-                    </Col>
-                    <Col span={10}>{item.path == '与我共享' ? '我收到的文件' : item.path}</Col>
-                    <Col span={7} style={{textAlign: 'right'}}>
-                      {item.path == '与我共享' ? `${item.creator.name} 分享` : `${item.creator.name} 创建`}
-                    </Col>
-                    <Col span={1} style={{textAlign: 'right'}}>
-                      <MoreOptionsButton />
-                    </Col>
-                  </Row>
-                }
-              />
-            </List.Item>
-          );
-        }}
-      />
-      {error && <p>Error: {error}</p>}
-    </div>
+    <List
+      style={{
+        height: '50vh' /* 固定高度，你可以根据需要调整 */,
+        overflow: 'auto' /* 允许滚动 */,
+        scrollbarWidth: 'thin'
+      }}
+      itemLayout="horizontal"
+      dataSource={data}
+      loading={loading}
+      renderItem={(item) => {
+        const fileExtension = getFileExtension(item.fname);
+        const fileType = findFileType(fileExtension);
+        return (
+          <List.Item>
+            <List.Item.Meta
+              avatar={<div dangerouslySetInnerHTML={{__html: fileIcon[fileType]}} />} // 默认图标
+              title={
+                <a href={item.link_url}>
+                  {params.searchname != undefined && item.highlight?.file_name ? (
+                    <div dangerouslySetInnerHTML={{__html: highlightEmTags(item.highlight.file_name[0])}} />
+                  ) : (
+                    item.fname
+                  )}
+                </a>
+              }
+              description={
+                <Row>
+                  <Col span={6}>
+                    {item.extra._open != undefined
+                      ? `你在 ${item.extra._open}打开过`
+                      : item.path != '与我共享'
+                        ? `你在 ${item.extra._mtime}更新过`
+                        : `${item.creator.name} 在 ${item.extra._mtime}更新过`}
+                  </Col>
+                  <Col span={10}>{item.path == '与我共享' ? '我收到的文件' : item.path}</Col>
+                  <Col span={7} style={{textAlign: 'right'}}>
+                    {item.path == '与我共享' ? `${item.creator.name} 分享` : `${item.creator.name} 创建`}
+                  </Col>
+                  <Col span={1} style={{textAlign: 'right'}}>
+                    <MoreOptionsButton />
+                  </Col>
+                </Row>
+              }
+            />
+          </List.Item>
+        );
+      }}
+    />
   );
 };
 

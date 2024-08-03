@@ -13,7 +13,7 @@ const checkedIcon = `<svg style="float: left" width="1em" height="1em" viewBox="
              </svg>`;
 
 const ButtonInput = () => {
-  const [position, setPosition] = useState('');
+  const [position, setPosition] = useState('search_file_content');
   const [selectedTypesVisible, setSelectedTypesVisible] = useState(false);
   const [selectedCreatorsVisible, setSelectedCreatorsVisible] = useState(false);
   const [selectedTimesVisible, setSelectedTimesVisible] = useState(false);
@@ -23,8 +23,8 @@ const ButtonInput = () => {
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         <div>
           <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} size="small">
-            <Radio.Button value="start">文件名</Radio.Button>
-            <Radio.Button value="end">正文</Radio.Button>
+            <Radio.Button value="search_file_content">文件名</Radio.Button>
+            <Radio.Button value="search_file_name">正文</Radio.Button>
           </Radio.Group>
         </div>
         <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap'}}>

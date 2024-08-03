@@ -3,9 +3,9 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {FetchFilesParams} from '../types/fileSearchType';
 
 const initialState: FetchFilesParams = {
-  offset: 0,
-  count: 20,
-  sort_by: 'time'
+  sort_by: 'time',
+  search_file_content: false,
+  search_file_name: true
 };
 
 const fetchFilesSlice = createSlice({
@@ -13,7 +13,7 @@ const fetchFilesSlice = createSlice({
   initialState,
   reducers: {
     setFetchFilesParams(state, action: PayloadAction<Partial<FetchFilesParams>>) {
-      console.log("neReduxState:", {...state, ...action.payload})
+      console.log('neReduxState:', {...state, ...action.payload});
       return {...state, ...action.payload};
     },
     resetFetchFilesParams() {

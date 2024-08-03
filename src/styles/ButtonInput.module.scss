@@ -1,29 +1,26 @@
-// .custom-table {
-//     .ant-table-tbody > tr > td {
-//     }
+/* 未选中状态 */
+.ant-radio-button-wrapper {
+    font-weight: normal; /* 取消加粗 */
+    color: rgba(0, 0, 0, 0.65); /* 默认颜色 */
+  }
   
-//     .ant-table-cell {
-//       height: 1px; // 根据需要调整行高
-//     }
+  /* 选中状态 */
+  .ant-radio-button-wrapper-checked {
+    font-weight: normal; /* 取消加粗 */
+    color: rgba(0, 0, 0, 0.85); /* 自定义选中状态颜色 */
+  }
   
-//     // 响应式调整
-//     @media (max-width: 768px) {
-//       .ant-table-tbody > tr > td {
-//         padding: 6px 12px;
-//       }
+  /* 选中和 hover 状态下的边框颜色 */
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+    border-color: #1890ff; /* 自定义边框颜色 */
+  }
   
-//       .ant-table-tbody > tr {
-//         height: 1.5rem;
-//       }
-//     }
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    border-color: #1890ff; /* 自定义边框颜色 */
+  }
   
-//     @media (max-width: 480px) {
-//       .ant-table-tbody > tr > td {
-//         padding: 4px 4px;
-//       }
+  /* 选中状态的背景颜色 */
+  .ant-radio-button-wrapper-checked {
+    background-color: #e6f7ff; /* 自定义背景颜色 */
+  }
   
-//       .ant-table-tbody > tr {
-//         height: 24px;
-//       }
-//     }
-//   }

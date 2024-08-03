@@ -10,8 +10,6 @@ export function fetchFiles(selectParams: FetchFilesParams): Promise<any> {
     platform: 'browser',
     terminal: 'win',
     product: 'kdocs',
-    search_file_content: false,
-    search_file_name: true,
     request_id: 'kdocs_pcweb-1716157589687466_1',
     include_group: true,
     with_sharefolder_type: true,
