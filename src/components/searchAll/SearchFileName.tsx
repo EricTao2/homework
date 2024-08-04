@@ -4,27 +4,13 @@ import {fetchFiles} from '../../services/fileSearchApi';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../slices';
 import {fileIcon} from '../../assets/fileIcon';
-import {fileTypeMapping} from '../../assets/fileTypeData';
 import MoreOptionsButton from '../MoreOptionsButton';
-import {FixedSizeList} from 'react-window';
-const highlightEmTags = (inputString: string) => {
-  // 使用正则表达式找到所有 <em> 标签，并添加内联样式
-  return inputString.replace(/<em>(.*?)<\/em>/g, '<em style="background-color: yellow;">$1</em>');
-};
-function getFileExtension(filename: string): string {
-  const parts = filename.split('.');
-  return parts.length > 1 ? parts[parts.length - 1] : 'default';
-}
-function findFileType(extension: string): string {
-  for (const [key, extensions] of fileTypeMapping) {
-    if ((extensions as string[]).includes(extension)) {
-      return key;
-    }
-  }
-  return 'default'; // 如果没有找到匹配的文件类型，返回 null
-}
-const AfterSearchResults: React.FC = () => {
+import {getFileExtension, findFileType, highlightEmTags} from '../../utils/selectHelper';
+import styles from '../../styles/SearchFileName.module.scss';
+
+const SearchFileName: React.FC = () => {
   const params = useSelector((state: RootState) => state.fetchFiles);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,8 +23,7 @@ const AfterSearchResults: React.FC = () => {
         const result = await fetchFiles(params);
         setData(result.files);
       } catch (err) {
-        console.log('err', err);
-        setError('qingqiuchucuola');
+        setError('出错误');
       } finally {
         setLoading(false);
       }
@@ -49,11 +34,7 @@ const AfterSearchResults: React.FC = () => {
 
   return (
     <List
-      style={{
-        height: '50vh' /* 固定高度，你可以根据需要调整 */,
-        overflow: 'auto' /* 允许滚动 */,
-        scrollbarWidth: 'thin'
-      }}
+      className={styles.listContainer}
       itemLayout="horizontal"
       dataSource={data}
       loading={loading}
@@ -61,11 +42,11 @@ const AfterSearchResults: React.FC = () => {
         const fileExtension = getFileExtension(item.fname);
         const fileType = findFileType(fileExtension);
         return (
-          <List.Item>
+          <List.Item className={styles.listItem}>
             <List.Item.Meta
-              avatar={<div dangerouslySetInnerHTML={{__html: fileIcon[fileType]}} />} // 默认图标
+              avatar={<div className="avatar-wrapper" dangerouslySetInnerHTML={{__html: fileIcon[fileType]}} />}
               title={
-                <a href={item.link_url}>
+                <a href={item.link_url} className={styles.fileLink}>
                   {params.searchname != undefined && item.highlight?.file_name ? (
                     <div dangerouslySetInnerHTML={{__html: highlightEmTags(item.highlight.file_name[0])}} />
                   ) : (
@@ -74,7 +55,7 @@ const AfterSearchResults: React.FC = () => {
                 </a>
               }
               description={
-                <Row>
+                <Row className={styles.descriptionRow}>
                   <Col span={6}>
                     {item.extra._open != undefined
                       ? `你在 ${item.extra._open}打开过`
@@ -83,10 +64,10 @@ const AfterSearchResults: React.FC = () => {
                         : `${item.creator.name} 在 ${item.extra._mtime}更新过`}
                   </Col>
                   <Col span={10}>{item.path == '与我共享' ? '我收到的文件' : item.path}</Col>
-                  <Col span={7} style={{textAlign: 'right'}}>
+                  <Col span={7} className={styles.creatorInfo}>
                     {item.path == '与我共享' ? `${item.creator.name} 分享` : `${item.creator.name} 创建`}
                   </Col>
-                  <Col span={1} style={{textAlign: 'right'}}>
+                  <Col span={1} className={styles.optionsButton}>
                     <MoreOptionsButton />
                   </Col>
                 </Row>
@@ -99,4 +80,4 @@ const AfterSearchResults: React.FC = () => {
   );
 };
 
-export default AfterSearchResults;
+export default SearchFileName;

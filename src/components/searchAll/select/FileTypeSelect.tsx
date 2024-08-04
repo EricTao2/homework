@@ -1,5 +1,5 @@
 import {processedFileTypeData, fileTypeMapping} from '../../../assets/fileTypeData';
-import DropdownSelectDataType from '../../../assets/SelectDataType';
+import DropdownSelectDataType from '../../../types/SelectDataType';
 import type {TableColumnsType} from 'antd';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../../store';
@@ -72,7 +72,7 @@ export const FileTypeSelect: React.FC<FileTypeSelectComponentProps> = ({checkedI
         }
         return <span dangerouslySetInnerHTML={{__html: res}} />;
       },
-      onCell: (record: DropdownSelectDataType, index) => {
+      onCell: (record: DropdownSelectDataType, _index) => {
         return {
           onClick: () => {
             if (record.name === 'all' && record.checked) {

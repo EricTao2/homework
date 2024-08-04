@@ -1,5 +1,5 @@
 import {processedTimeData} from '../../../assets/timeData';
-import DropdownSelectDataType from '../../../assets/SelectDataType';
+import DropdownSelectDataType from '../../../types/SelectDataType';
 import type {TableColumnsType} from 'antd';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../../store';
@@ -10,7 +10,6 @@ interface TimeSelectComponentProps {
   checkedIcon: string;
   setSelectedTimesVisible: Dispatch<SetStateAction<boolean>>;
 }
-
 
 export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, setSelectedTimesVisible}) => {
   const dispatch: AppDispatch = useDispatch();
@@ -62,7 +61,7 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
 
   return (
     <Table
-    style={{cursor: 'pointer'}}
+      style={{cursor: 'pointer'}}
       className="custom-table"
       columns={columns}
       dataSource={processedTimeData}

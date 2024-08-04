@@ -3,8 +3,8 @@
 export interface FetchFilesParams {
   offset?: number;
   count?: number;
-  search_file_content: boolean;
-  search_file_name: boolean;
+  search_file_content?: boolean;
+  search_file_name?: boolean;
   sort_by: string; // 根据时间搜索
   start_time?: number;
   end_time?: number;

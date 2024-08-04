@@ -1,4 +1,4 @@
-import DropdownSelectDataType from './SelectDataType';
+import DropdownSelectDataType from '../types/SelectDataType';
 
 const scopeData: DropdownSelectDataType[] = [
   {
@@ -46,7 +46,7 @@ const scopeData: DropdownSelectDataType[] = [
   {
     name: 'customedScope',
     title: '自定义位置'
-  },
+  }
 ];
 export const processedScopeData = scopeData.map((item, index) => {
   item.key = index.toString();

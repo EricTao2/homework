@@ -1,4 +1,4 @@
-import DropdownSelectDataType from './SelectDataType';
+import DropdownSelectDataType from '../types/SelectDataType';
 
 export const fileTypeMapping: Map<string, string[]> = new Map(
   Object.entries({

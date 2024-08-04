@@ -1,4 +1,4 @@
-import DropdownSelectDataType from './SelectDataType';
+import DropdownSelectDataType from '../types/SelectDataType';
 const getCurrentTimeStamp = () => {
   const currentTime = new Date();
   return Math.floor(currentTime.getTime() / 1000); // 秒级时间戳

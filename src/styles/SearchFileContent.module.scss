@@ -1,0 +1,82 @@
+.container {
+    height: 75vh;
+    overflow: auto;
+    scrollbar-width: thin;
+    overflow-x: hidden; // 隐藏横向滚动条
+  
+    .loading {
+      height: 75vh;
+    }
+  
+    .customCard {
+      border: 0.1px solid #9e9999; // 设置边框颜色为深色
+      height: 100%; // 固定卡片高度
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  
+      .ant-card-head {
+        border-bottom: none !important;
+      }
+  
+      .ant-card-body {
+        overflow: hidden; // 隐藏超出部分
+      }
+  
+      .cardFooter {
+        display: flex;
+        align-items: center;
+  
+        .time {
+          margin-right: 8px; // 给时间和图标之间添加一点间距
+        }
+      }
+  
+      h4 {
+        font-weight: bold;
+        font-size: 1rem; // 调整标题字体大小
+      }
+  
+      .fileContent {
+        font-size: 0.8rem; // 调整内容字体大小
+      }
+    }
+  }
+  
+  // 响应式布局
+  @media (max-width: 576px) {
+    .customCard {
+      h4 {
+        font-size: 1rem; // 在小屏幕上调整标题字体大小
+      }
+  
+      .fileContent {
+        font-size: 0.9rem; // 在小屏幕上调整内容字体大小
+      }
+    }
+  }
+  
+  @media (min-width: 576px) and (max-width: 768px) {
+    .customCard {
+      h4 {
+        font-size: 1.1rem; // 在中屏幕上调整标题字体大小
+      }
+  
+      .fileContent {
+        font-size: 1rem; // 在中屏幕上调整内容字体大小
+      }
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .customCard {
+      h4 {
+        font-size: 1.2rem; // 在大屏幕上调整标题字体大小
+      }
+  
+      .fileContent {
+        font-size: 1.1rem; // 在大屏幕上调整内容字体大小
+      }
+    }
+  }
+  

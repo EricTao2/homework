@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {Avatar, List, theme} from 'antd';
-import {fetchFiles, selectParams} from '../../services/fileSearchApi';
 
 const data = [
   {
@@ -21,9 +20,7 @@ const BeforeSearchHistory: React.FC = () => {
   const {
     token: {colorBgContainer}
   } = theme.useToken();
-  useEffect(() => {
-    fetchFiles(selectParams);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <List
       style={{backgroundColor: colorBgContainer}}

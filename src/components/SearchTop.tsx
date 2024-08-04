@@ -1,14 +1,17 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {Card, Dropdown, Input, theme} from 'antd';
 import '../styles/searchTop.scss';
-import AfterSearchResults from './searchAll/AfterSearchResults';
+import SearchFileName from './searchAll/SearchFileName';
 import ButtonInput from './searchAll/ButtonInput';
 import {debounce} from 'lodash';
-import {useDispatch} from 'react-redux';
-import {AppDispatch} from '../store';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch, RootState} from '../store';
 import {setFetchFilesParams} from '../slices/fetchFilesSlice';
+import SearchFileContent from './searchAll/SearchFileContent';
 const SearchTop: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const params = useSelector((state: RootState) => state.fetchFiles);
+
   const inputRef = useRef<string>('');
   const {
     token: {colorBgContainer}
@@ -41,7 +44,7 @@ const SearchTop: React.FC = () => {
       placement="bottom"
       dropdownRender={() => (
         <Card title={<ButtonInput />} style={{width: '79.5vw'}}>
-          <AfterSearchResults />
+          {params.search_file_name ? <SearchFileName /> : <SearchFileContent />}
         </Card>
       )}
     >

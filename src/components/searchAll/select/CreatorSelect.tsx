@@ -1,5 +1,5 @@
 import {processedCreatorData} from '../../../assets/creatorData';
-import DropdownSelectDataType from '../../../assets/SelectDataType';
+import DropdownSelectDataType from '../../../types/SelectDataType';
 import type {TableColumnsType} from 'antd';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../../store';

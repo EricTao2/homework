@@ -1,0 +1,60 @@
+.listContainer {
+    height: 75vh; // 固定高度
+    overflow: auto; // 允许滚动
+    scrollbar-width: thin; // 窄滚动条
+  }
+  
+  .listItem {
+    border-bottom: 1px solid #e8e8e8; // 列表项底部边框
+    padding: 10px 0; // 列表项内边距
+  }
+  
+  .fileLink {
+    font-weight: bold; // 加粗文件名
+    font-size: 0.8rem; // 文件名字体大小
+    color: #1890ff; // 文件名颜色
+  }
+  
+  .descriptionRow {
+    font-size: 0.8rem; // 描述字体大小
+  }
+  
+  .creatorInfo {
+    text-align: right; // 创建者信息右对齐
+  }
+  
+  .optionsButton {
+    text-align: right; // 更多选项按钮右对齐
+  }
+  
+  // 响应式布局
+  @media (max-width: 576px) {
+    .fileLink {
+      font-size: 1rem; // 小屏幕上调整文件名字体大小
+    }
+  
+    .descriptionRow {
+      font-size: 0.8rem; // 小屏幕上调整描述字体大小
+    }
+  }
+  
+  @media (min-width: 576px) and (max-width: 768px) {
+    .fileLink {
+      font-size: 1.05rem; // 中屏幕上调整文件名字体大小
+    }
+  
+    .descriptionRow {
+      font-size: 0.85rem; // 中屏幕上调整描述字体大小
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .fileLink {
+      font-size: 1.1rem; // 大屏幕上调整文件名字体大小
+    }
+  
+    .descriptionRow {
+      font-size: 0.9rem; // 大屏幕上调整描述字体大小
+    }
+  }
+  

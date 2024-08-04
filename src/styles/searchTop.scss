@@ -1,7 +1,7 @@
 .customCard {
   margin-top: 5px;
-  width: 104%;
-  left: -3%;
+  width: 100%;
+  left: 0;
   position: relative; /* 确保 left 属性生效 */
   
   .ant-card-head {
@@ -10,5 +10,22 @@
 
   .ant-card-body {
     padding-top: 0; /* 如果需要，调整内容的上内边距 */
+  }
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 600px; /* 限制最大宽度 */
+  margin: 0 auto; /* 居中对齐 */
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+}
+
+@media (min-width: 768px) {
+  .customCard {
+    width: 80vw; /* 调整宽度以适应较大的屏幕 */
+    left: 10vw; /* 调整左边距以居中对齐 */
   }
 }

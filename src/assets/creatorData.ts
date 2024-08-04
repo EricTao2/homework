@@ -1,5 +1,5 @@
-import { fetchUserInfo } from '../services/userApi';
-import DropdownSelectDataType from './SelectDataType';
+import {fetchUserInfo} from '../services/userApi';
+import DropdownSelectDataType from '../types/SelectDataType';
 
 const userInfo = await fetchUserInfo();
 const creatorData: DropdownSelectDataType[] = [
@@ -26,7 +26,7 @@ const creatorData: DropdownSelectDataType[] = [
     getStateValue: () => {
       return {filter_user_id: `${userInfo.id}`};
     }
-  },
+  }
 ];
 export const processedCreatorData = creatorData.map((item, index) => {
   item.key = index.toString();
