@@ -16,15 +16,15 @@ const creatorData: DropdownSelectDataType[] = [
     icon: `<img data-v-6cecdf70="" src="//volcengine-kdocs-cache.wpscdn.cn/kdocs/cloud/search/avatar_others_v2.svg">`,
     title: '他人创建的',
     getStateValue: () => {
-      return {filter_user_id: `-${userInfo.id}`};
+      return {filter_user_id: `-${userInfo?.id}`};
     }
   },
   {
     name: 'iCreated',
-    icon: `<img data-v-6cecdf70="" style="height:22px;border-radius:50%" src="${userInfo.avatar}">`,
-    title: `${userInfo.name}（我）`,
+    icon: `<img data-v-6cecdf70="" style="height:22px;border-radius:50%" src="${userInfo?.avatar}">`,
+    title: `${userInfo?.name}（我）`,
     getStateValue: () => {
-      return {filter_user_id: `${userInfo.id}`};
+      return {filter_user_id: `${userInfo?.id}`};
     }
   }
 ];

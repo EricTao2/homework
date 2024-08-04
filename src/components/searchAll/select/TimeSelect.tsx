@@ -78,3 +78,5 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
     />
   );
 };
+
+export { processedTimeData };

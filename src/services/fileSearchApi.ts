@@ -43,7 +43,7 @@ export function fetchFiles(selectParams: FetchFilesParams): Promise<any> {
     offset: '0',
     count: '20'
   };
-
+  console.log("FetchFilesParams API")
   return fetch(url, {
     headers: headers,
     referrer: 'https://365.kdocs.cn/latest',

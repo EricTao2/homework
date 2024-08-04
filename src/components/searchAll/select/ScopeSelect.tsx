@@ -80,3 +80,5 @@ export const ScopeSelect: React.FC<ScopeSelectComponentProps> = ({checkedIcon, s
     />
   );
 };
+
+export { processedScopeData };

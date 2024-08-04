@@ -2,7 +2,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {FetchFilesParams} from '../types/fileSearchType';
 
-const initialState: FetchFilesParams = {
+export const initialState: FetchFilesParams = {
   sort_by: 'time',
   search_file_content: false,
   search_file_name: true

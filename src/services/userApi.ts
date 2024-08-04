@@ -2,6 +2,7 @@ const baseUrl = 'https://365.kdocs.cn';
 const endpoint = '/3rd/drive/api/v3/userinfo';
 
 export function fetchUserInfo() {
+  console.log('fetchUserInfo API');
   return fetch(`${baseUrl}${endpoint}`, {
     method: 'GET',
     headers: {

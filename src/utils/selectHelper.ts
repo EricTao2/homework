@@ -7,7 +7,7 @@ export function highlightEmTags(inputString: string) {
 
 export function getFileExtension(filename: string): string {
   const parts = filename.split('.');
-  return parts.length > 1 ? parts[parts.length - 1] : 'default';
+  return parts.length > 1 && parts[parts.length - 1] != '' ? parts[parts.length - 1] : 'default';
 }
 
 export function findFileType(extension: string): string {

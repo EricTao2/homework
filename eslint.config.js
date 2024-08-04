@@ -6,7 +6,7 @@ import prettierPlugin from 'eslint-plugin-prettier';
 
 const config = [
   {
-    ignores: ['dist', 'node_modules']
+    ignores: ['dist', 'node_modules', '__test__']
   },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
