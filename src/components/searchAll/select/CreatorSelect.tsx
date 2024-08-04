@@ -4,18 +4,20 @@ import type {TableColumnsType} from 'antd';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../../store';
 import {Table} from 'antd';
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState, useRef} from 'react';
 import {setFetchFilesParams} from '../../../slices/fetchFilesSlice';
 
 interface CreatorSelectComponentProps {
   checkedIcon: string;
   setSelectedCreatorVisible: Dispatch<SetStateAction<boolean>>;
+  setSelectedCreatorText: Dispatch<SetStateAction<string>>;
 }
 
-export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({checkedIcon, setSelectedCreatorVisible}) => {
+export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({checkedIcon, setSelectedCreatorVisible, setSelectedCreatorText}) => {
   const dispatch: AppDispatch = useDispatch();
   const [_, setSelectCreatorData] = useState(processedCreatorData);
   const [selectedCreator, setSelectedCreator] = useState('all');
+  const prevSelectedCreator = useRef('');
 
   const updateSelectedCreator = (name: string) => {
     if (selectedCreator === name) return;
@@ -25,18 +27,25 @@ export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({checkedIco
   };
 
   useEffect(() => {
+    if (prevSelectedCreator.current === '' || prevSelectedCreator.current === selectedCreator) {
+      prevSelectedCreator.current = selectedCreator;
+      return;
+    }
+    prevSelectedCreator.current = selectedCreator;
+    let newState = {};
     setSelectCreatorData((prev) => {
-      const newSate = prev.map((item) => {
+      const newSelectCreatorDat = prev.map((item) => {
         if (selectedCreator === item.name) {
           item.checked = true;
-          dispatch(setFetchFilesParams(item.getStateValue ? item.getStateValue() : {}));
+          newState = item.getStateValue ? item.getStateValue() : {};
         } else {
           item.checked = false;
         }
         return item;
       });
-      return newSate;
+      return newSelectCreatorDat;
     });
+    dispatch(setFetchFilesParams(newState));
   }, [selectedCreator]);
 
   const columns: TableColumnsType<DropdownSelectDataType> = [

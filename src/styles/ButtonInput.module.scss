@@ -1,34 +1,38 @@
 .buttonInputContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  
-    @media (min-width: 768px) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
-  
-  .radioGroupContainer {
-    margin-bottom: 0.5rem;
-  
-    @media (min-width: 768px) {
-      margin-bottom: 0;
-    }
+}
+
+.radioGroupContainer {
+  margin-bottom: 0.5rem;
+
+  @media (min-width: 768px) {
+    margin-bottom: 0;
   }
-  
-  .dropdownContainer {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  
-    @media (min-width: 768px) {
-      flex-wrap: nowrap;
-    }
+}
+
+.dropdownContainer {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  @media (min-width: 768px) {
+    flex-wrap: nowrap;
   }
-  
+}
+
+.antDropdownOpen {
+  border-color: #1677ff;
+  color: #1677ff;
+}

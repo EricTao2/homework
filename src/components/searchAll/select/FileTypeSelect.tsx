@@ -4,39 +4,61 @@ import type {TableColumnsType} from 'antd';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../../store';
 import {Table} from 'antd';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {setFetchFilesParams} from '../../../slices/fetchFilesSlice';
 interface FileTypeSelectComponentProps {
   checkedIcon: string;
 }
+
+function areSetsEqual<T>(setA: Set<T>, setB: Set<T>): boolean {
+  if (setA.size !== setB.size) {
+    return false;
+  }
+
+  for (let elem of setA) {
+    if (!setB.has(elem)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export const FileTypeSelect: React.FC<FileTypeSelectComponentProps> = ({checkedIcon}) => {
   const dispatch: AppDispatch = useDispatch();
   const [_, setSelectFileTypeData] = useState(processedFileTypeData);
   const initSelectedTypes = new Set(['all']);
   const [selectedTypes, setSelectedTypes] = useState(initSelectedTypes);
+  const prevSelectedTypes = useRef(new Set());
 
   const updateSelectTypes = (type: string, checked: boolean) => {
     setSelectedTypes((prev) => {
-      const newSate = new Set(prev);
+      let newState = new Set(prev);
       if (checked) {
         if (type === 'all') {
-          return initSelectedTypes;
+          newState = initSelectedTypes;
+        } else {
+          newState.add(type);
         }
-        newSate.add(type);
       } else {
-        newSate.delete(type);
+        newState.delete(type);
       }
-      if (newSate.size === 0) {
-        return initSelectedTypes;
+      if (newState.size === 0) {
+        newState = initSelectedTypes;
       }
-      if (newSate.size > 1) {
-        newSate.delete('all');
+      if (newState.size > 1) {
+        newState.delete('all');
       }
-      return newSate;
+      return newState;
     });
   };
 
   useEffect(() => {
+    if (prevSelectedTypes.current.size == 0 || areSetsEqual(prevSelectedTypes.current, selectedTypes)) {
+      prevSelectedTypes.current = selectedTypes;
+      return;
+    }
+    prevSelectedTypes.current = selectedTypes;
     if (selectedTypes.has('all')) {
       dispatch(setFetchFilesParams({include_ext_groups: undefined, include_exts: undefined}));
     } else {
@@ -49,7 +71,7 @@ export const FileTypeSelect: React.FC<FileTypeSelectComponentProps> = ({checkedI
       dispatch(setFetchFilesParams({include_ext_groups: include_ext_groups, include_exts: include_exts}));
     }
     setSelectFileTypeData((prev) => {
-      const newSate = prev.map((item) => {
+      const newSelectFileTypeData = prev.map((item) => {
         if (selectedTypes.has(item.name)) {
           item.checked = true;
         } else {
@@ -57,7 +79,7 @@ export const FileTypeSelect: React.FC<FileTypeSelectComponentProps> = ({checkedI
         }
         return item;
       });
-      return newSate;
+      return newSelectFileTypeData;
     });
   }, [selectedTypes]);
 

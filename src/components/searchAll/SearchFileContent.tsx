@@ -40,28 +40,30 @@ const SearchFileContent: React.FC = () => {
         <Alert message={error} type="error" />
       ) : (
         <Row gutter={[16, 16]}>
-          {data.map((file) => {
-            const fileExtension = getFileExtension(file.fname);
-            const fileType = findFileType(fileExtension);
-            return (
-              <Col xs={24} sm={12} md={8} key={file.id}>
-                <a href={file.link_url} target="_blank" rel="noopener noreferrer">
-                  <Card className={styles.customCard} bordered={false}>
-                    <div className={styles.cardFooter}>
-                      <span className={styles.time}>{new Date(file.mtime * 1000).toLocaleDateString()}</span>
-                      <Divider type="vertical" />
-                      <span dangerouslySetInnerHTML={{__html: fileIconSmall[fileType]}} />
-                    </div>
-                    <h4>{file.fname}</h4>
-                    <p
-                      className={styles.fileContent}
-                      dangerouslySetInnerHTML={{__html: highlightEmTags(file.highlight.file_content.join('...'))}}
-                    />
-                  </Card>
-                </a>
-              </Col>
-            );
-          })}
+          {data
+            .filter((file) => file?.highlight?.file_content)
+            .map((file) => {
+              const fileExtension = getFileExtension(file.fname);
+              const fileType = findFileType(fileExtension);
+              return (
+                <Col xs={24} sm={12} md={8} key={file.id}>
+                  <a href={file.link_url} target="_blank" rel="noopener noreferrer">
+                    <Card className={styles.customCard} bordered={false}>
+                      <div className={styles.cardFooter}>
+                        <span className={styles.time}>{new Date(file.mtime * 1000).toLocaleDateString()}</span>
+                        <Divider type="vertical" />
+                        <span dangerouslySetInnerHTML={{__html: fileIconSmall[fileType]}} />
+                      </div>
+                      <h4>{file.fname}</h4>
+                      <p
+                        className={styles.fileContent}
+                        dangerouslySetInnerHTML={{__html: highlightEmTags(file.highlight.file_content.join('...'))}}
+                      />
+                    </Card>
+                  </a>
+                </Col>
+              );
+            })}
         </Row>
       )}
     </div>

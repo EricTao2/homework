@@ -21,6 +21,7 @@ const ButtonInput = () => {
   const [position, setPosition] = useState('search_file_name');
   const [selectedTypesVisible, setSelectedTypesVisible] = useState(false);
   const [selectedCreatorVisible, setSelectedCreatorVisible] = useState(false);
+  const [selectedCreatorText, setSelectedCreatorText] = useState('');
   const [selectedTimesVisible, setSelectedTimesVisible] = useState(false);
   const [selectedScopeVisible, setSelectedScopeVisible] = useState(false);
 
@@ -48,7 +49,9 @@ const ButtonInput = () => {
           placement="bottomLeft"
           dropdownRender={() => <FileTypeSelect checkedIcon={checkedIcon} />}
         >
-          <Button size="small">类型</Button>
+          <Button className={`${selectedTypesVisible ? styles.antDropdownOpen : ''}`} size="small">
+            类型
+          </Button>
         </Dropdown>
         <Dropdown
           trigger={['click']}
@@ -56,10 +59,10 @@ const ButtonInput = () => {
           onOpenChange={setSelectedCreatorVisible}
           placement="bottomLeft"
           dropdownRender={() => (
-            <CreatorSelect checkedIcon={checkedIcon} setSelectedCreatorVisible={setSelectedCreatorVisible} />
+            <CreatorSelect checkedIcon={checkedIcon} setSelectedCreatorVisible={setSelectedCreatorVisible} setSelectedCreatorText={setSelectedCreatorText}/>
           )}
         >
-          <Button size="small">创建者</Button>
+          <Button className={`${selectedCreatorVisible ? styles.antDropdownOpen : ''}`} size="small">创建者</Button>
         </Dropdown>
         <Dropdown
           trigger={['click']}
@@ -70,7 +73,7 @@ const ButtonInput = () => {
             <TimeSelect checkedIcon={checkedIcon} setSelectedTimesVisible={setSelectedTimesVisible} />
           )}
         >
-          <Button size="small">时间</Button>
+          <Button className={`${selectedTimesVisible ? styles.antDropdownOpen : ''}`} size="small">时间</Button>
         </Dropdown>
         <Dropdown
           trigger={['click']}
@@ -81,7 +84,7 @@ const ButtonInput = () => {
             <ScopeSelect checkedIcon={checkedIcon} setSelectedScopeVisible={setSelectedScopeVisible} />
           )}
         >
-          <Button size="small">位置</Button>
+          <Button className={`${selectedScopeVisible ? styles.antDropdownOpen : ''}`} size="small">位置</Button>
         </Dropdown>
       </div>
     </div>

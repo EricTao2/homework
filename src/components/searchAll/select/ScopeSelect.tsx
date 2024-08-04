@@ -4,7 +4,7 @@ import type {TableColumnsType} from 'antd';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../../store';
 import {Table} from 'antd';
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState, useRef} from 'react';
 import {setFetchFilesParams} from '../../../slices/fetchFilesSlice';
 interface ScopeSelectComponentProps {
   checkedIcon: string;
@@ -15,6 +15,8 @@ export const ScopeSelect: React.FC<ScopeSelectComponentProps> = ({checkedIcon, s
   const dispatch: AppDispatch = useDispatch();
   const [_, setSelectScopeData] = useState(processedScopeData);
   const [selectedScope, setSelectedScope] = useState('all');
+  const prevSelectedScope = useRef('');
+
 
   const updateSelectedScope = (name: string) => {
     if (selectedScope === name) return;
@@ -24,18 +26,25 @@ export const ScopeSelect: React.FC<ScopeSelectComponentProps> = ({checkedIcon, s
   };
 
   useEffect(() => {
+    if (prevSelectedScope.current === '') {
+      prevSelectedScope.current = selectedScope;
+      return;
+    }
+    prevSelectedScope.current = selectedScope;
+    let newState = {};
     setSelectScopeData((prev) => {
-      const newSate = prev.map((item) => {
+      const newSelectScopeData = prev.map((item) => {
         if (selectedScope === item.name) {
           item.checked = true;
-          dispatch(setFetchFilesParams(item.getStateValue ? item.getStateValue() : {}));
+          newState = item.getStateValue ? item.getStateValue() : {};
         } else {
           item.checked = false;
         }
         return item;
       });
-      return newSate;
+      return newSelectScopeData;
     });
+    dispatch(setFetchFilesParams(newState));
   }, [selectedScope]);
 
   const columns: TableColumnsType<DropdownSelectDataType> = [
