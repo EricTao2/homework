@@ -1,25 +1,34 @@
+/// <reference types="vitest" />
 import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
-export default defineConfig(({command, mode}) => {
+export default defineConfig(({command}) => {
+  let configRes = {
+    plugins: [react()],
+    server: {
+      host: true
+    },
+    test: {
+      environment: 'jsdom',
+      setupFiles: ['./vitest.setup.ts'],
+    }
+  };
   if (command === 'serve') {
     // 开发服务器配置
-    return {
-      plugins: [react()],
-      base: '/zhangjufang/dev/search/',
-      server: {
-        host: true
+    configRes = {
+      ...configRes,
+      ...{
+        base: '/zhangjufang/dev/search/'
       }
     };
   } else {
-    // 正式构建配置
-    return {
-      plugins: [react()],
-      base: '/zhangjufang/prod/search/',
-      server: {
-        host: true
+    configRes = {
+      ...configRes,
+      ...{
+        base: '/zhangjufang/prod/search/'
       }
     };
   }
+  return configRes;
 });

@@ -8,11 +8,16 @@
     "build": "tsc -b && vite build",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "proxy": "w2 add .whistle.cjs --force"
+    "proxy": "w2 add .whistle.cjs --force",
+    "test:ui": "vitest --ui",
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
     "@reduxjs/toolkit": "^2.2.7",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/user-event": "^14.5.2",
+    "@vitejs/plugin-react": "^4.3.1",
     "antd": "^5.19.4",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
@@ -24,6 +29,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
     "@eslint/js": "^8.56.0",
+    "@testing-library/react": "^16.0.0",
     "@types/lodash": "^4.17.7",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -32,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "@vitest/ui": "^2.0.5",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -39,9 +46,11 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "globals": "^15.8.0",
+    "jsdom": "^24.1.1",
     "prettier": "^3.3.3",
     "typescript": "^5.2.2",
     "typescript-eslint": "^7.18.0",
-    "vite": "^5.3.4"
+    "vite": "^5.3.4",
+    "vitest": "^2.0.5"
   }
 }
