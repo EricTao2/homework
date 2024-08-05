@@ -1,11 +1,11 @@
-import {processedCreatorData} from '../../../assets/creatorData';
+import { processedCreatorData } from '../../../assets/creatorData';
 import DropdownSelectDataType from '../../../types/SelectDataType';
-import type {TableColumnsType} from 'antd';
-import {useDispatch} from 'react-redux';
-import {AppDispatch} from '../../../store';
-import {Table} from 'antd';
-import React, {Dispatch, SetStateAction, useEffect, useState, useRef} from 'react';
-import {setFetchFilesParams} from '../../../slices/fetchFilesSlice';
+import type { TableColumnsType } from 'antd';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../store';
+import { Table } from 'antd';
+import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react';
+import { setFetchFilesParams } from '../../../slices/fetchFilesSlice';
 
 interface CreatorSelectComponentProps {
   checkedIcon: string;
@@ -13,9 +13,9 @@ interface CreatorSelectComponentProps {
   setSelectedCreatorText: Dispatch<SetStateAction<string>>;
 }
 
-export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({checkedIcon, setSelectedCreatorVisible, setSelectedCreatorText}) => {
+export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({ checkedIcon, setSelectedCreatorVisible, setSelectedCreatorText }) => {
   const dispatch: AppDispatch = useDispatch();
-  const [_, setSelectCreatorData] = useState(processedCreatorData);
+  const [selectCreatorData, setSelectCreatorData] = useState(processedCreatorData);
   const [selectedCreator, setSelectedCreator] = useState('all');
   const prevSelectedCreator = useRef('');
 
@@ -32,20 +32,26 @@ export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({checkedIco
       return;
     }
     prevSelectedCreator.current = selectedCreator;
-    let newState = {};
     setSelectCreatorData((prev) => {
-      const newSelectCreatorDat = prev.map((item) => {
+      const newSelectCreatorData = prev.map((item) => {
         if (selectedCreator === item.name) {
           item.checked = true;
-          newState = item.getStateValue ? item.getStateValue() : {};
         } else {
           item.checked = false;
         }
         return item;
       });
-      return newSelectCreatorDat;
+      return newSelectCreatorData;
     });
-    dispatch(setFetchFilesParams(newState));
+
+    for (const item of selectCreatorData) {
+      if (selectedCreator === item.name) {
+        item.checked = true;
+        const newState = item.getStateValue ? item.getStateValue() : {};
+        dispatch(setFetchFilesParams(newState));
+        break;
+      }
+    };
   }, [selectedCreator]);
 
   const columns: TableColumnsType<DropdownSelectDataType> = [
@@ -56,7 +62,7 @@ export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({checkedIco
         if (record.checked) {
           res = `${checkedIcon} <div style="float: left; margin-left: 1em;margin-right: 1em">${record.icon}</div> <div style="float: left;">${record.title}</div>`;
         }
-        return <span dangerouslySetInnerHTML={{__html: res}} />;
+        return <span dangerouslySetInnerHTML={{ __html: res }} />;
       },
       onCell: (record: DropdownSelectDataType) => {
         return {
@@ -72,7 +78,7 @@ export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({checkedIco
 
   return (
     <Table
-      style={{cursor: 'pointer'}}
+      style={{ cursor: 'pointer' }}
       className="custom-table"
       columns={columns}
       dataSource={processedCreatorData}
