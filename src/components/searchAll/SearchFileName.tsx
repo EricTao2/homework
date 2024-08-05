@@ -69,7 +69,7 @@ const SearchFileName: React.FC = () => {
         className={styles.virtualList}
         ref={listRef}
         height={600}
-        itemCount={hasMore ? data.length + 1 : data.length}
+        itemCount={data.length + (hasMore ? 1 : 0) + (hasMore ? 0 : 1)} // 增加额外的提示项
         itemSize={100}
         width="100%"
         onItemsRendered={({ visibleStopIndex }) => {
@@ -80,11 +80,19 @@ const SearchFileName: React.FC = () => {
       >
         {({ index, style }) => {
           const item = data[index];
-          if (!item) {
+          if (!item && hasMore) {
             return (
               <Spin tip="加载中...">
                 <div className={styles.loading} />
               </Spin>
+            );
+          }
+
+          if (!item && !hasMore) {
+            return (
+              <div style={style} key={index} className={styles.noMoreFiles}>
+                没有更多文件
+              </div>
             );
           }
 
