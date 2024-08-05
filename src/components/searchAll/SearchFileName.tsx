@@ -19,6 +19,17 @@ const SearchFileName: React.FC = () => {
   const [offset, setOffset] = useState(0);
   const listRef = useRef<any>();
 
+   // 浏览记录
+   const handleLinkClick = () => {
+    const browsingHistoryString = localStorage.getItem('browsingHistory');
+    const browsingHistory = browsingHistoryString ? JSON.parse(browsingHistoryString) : [];
+    browsingHistory.push({
+     ...params
+    });
+    localStorage.setItem('browsingHistory', JSON.stringify(browsingHistory));
+  };
+
+
   const loadMoreData = useCallback(
     throttle(async () => {
       if (loading || !hasMore) return;
@@ -104,7 +115,7 @@ const SearchFileName: React.FC = () => {
                 <div className={styles.icon} dangerouslySetInnerHTML={{ __html: fileIcon[fileType] }} />
                 <div style={{ flex: 1 }}>
                   <div>
-                    <a href={item.link_url} className={styles.link}>
+                    <a href={item.link_url} target="_blank" className={styles.link} onClick={handleLinkClick}>
                       {params.searchname !== undefined && item.highlight?.file_name ? (
                         <div
                           dangerouslySetInnerHTML={{ __html: highlightEmTags(item.highlight.file_name[0]) }}

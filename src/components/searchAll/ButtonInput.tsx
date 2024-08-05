@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {useEffect, useState} from 'react';
 import {Button, Dropdown, Radio} from 'antd';
-import {useDispatch} from 'react-redux';
-import {AppDispatch} from '../../store';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch, RootState} from '../../store';
 import {setFetchFilesParams} from '../../slices/fetchFilesSlice';
 import {FileTypeSelect} from './select/FileTypeSelect';
 import {TimeSelect} from './select/TimeSelect';
@@ -17,6 +17,7 @@ const checkedIcon = `<svg style="float: left" width="1em" height="1em" viewBox="
 </svg>`;
 
 const ButtonInput = () => {
+  const params = useSelector((state: RootState) => state.fetchFiles);
   const dispatch: AppDispatch = useDispatch();
   const [position, setPosition] = useState('search_file_name');
   const [selectedTypesVisible, setSelectedTypesVisible] = useState(false);
@@ -49,7 +50,7 @@ const ButtonInput = () => {
           placement="bottomLeft"
           dropdownRender={() => <FileTypeSelect checkedIcon={checkedIcon} />}
         >
-          <Button className={`${selectedTypesVisible ? styles.antDropdownOpen : ''}`} size="small">
+          <Button className={`${selectedTypesVisible ? styles.antDropdownOpen : ''}`} size="small" disabled={params.search_file_content&&params.searchname==''}>
             类型
           </Button>
         </Dropdown>
@@ -62,7 +63,7 @@ const ButtonInput = () => {
             <CreatorSelect checkedIcon={checkedIcon} setSelectedCreatorVisible={setSelectedCreatorVisible} setSelectedCreatorText={setSelectedCreatorText}/>
           )}
         >
-          <Button className={`${selectedCreatorVisible ? styles.antDropdownOpen : ''}`} size="small">创建者</Button>
+          <Button className={`${selectedCreatorVisible ? styles.antDropdownOpen : ''}`} size="small" disabled={params.search_file_content&&params.searchname==''}>创建者</Button>
         </Dropdown>
         <Dropdown
           trigger={['click']}
@@ -73,7 +74,7 @@ const ButtonInput = () => {
             <TimeSelect checkedIcon={checkedIcon} setSelectedTimesVisible={setSelectedTimesVisible} />
           )}
         >
-          <Button className={`${selectedTimesVisible ? styles.antDropdownOpen : ''}`} size="small">时间</Button>
+          <Button className={`${selectedTimesVisible ? styles.antDropdownOpen : ''}`} size="small" disabled={params.search_file_content&&params.searchname==''}>时间</Button>
         </Dropdown>
         <Dropdown
           trigger={['click']}
@@ -84,7 +85,7 @@ const ButtonInput = () => {
             <ScopeSelect checkedIcon={checkedIcon} setSelectedScopeVisible={setSelectedScopeVisible} />
           )}
         >
-          <Button className={`${selectedScopeVisible ? styles.antDropdownOpen : ''}`} size="small">位置</Button>
+          <Button className={`${selectedScopeVisible ? styles.antDropdownOpen : ''}`} size="small" disabled={params.search_file_content&&params.searchname==''}>位置</Button>
         </Dropdown>
       </div>
     </div>

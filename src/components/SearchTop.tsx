@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Card, Dropdown, Input, theme} from 'antd';
 import '../styles/searchTop.scss';
 import SearchFileName from './searchAll/SearchFileName';
@@ -8,11 +8,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../store';
 import {setFetchFilesParams} from '../slices/fetchFilesSlice';
 import SearchFileContent from './searchAll/SearchFileContent';
+import BeforeSearchHistory from './searchAll/BeforeSearchHistory';
 const SearchTop: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const params = useSelector((state: RootState) => state.fetchFiles);
-
   const inputRef = useRef<string>('');
+  const [historyList,setHistoryList] = useState<boolean>(true)
+
   const {
     token: {colorBgContainer}
   } = theme.useToken();
@@ -27,7 +29,7 @@ const SearchTop: React.FC = () => {
   };
   // 使用 useCallback 包裹 debounce 函数以防止每次渲染都重新创建
   const debouncedSearch = useCallback(
-    debounce((value: string) => handleSearch(value), 300),
+    debounce((value: string) => handleSearch(value), 200),
     []
   );
 
@@ -35,6 +37,20 @@ const SearchTop: React.FC = () => {
     inputRef.current = e.target.value;
     debouncedSearch(e.target.value);
   };
+  useEffect(()=>{
+   console.log("开始做历史啦",params);
+   if(
+    params.searchname !=''||
+   params.start_time != -1 || 
+   params.include_exts !=''||
+   params.filter_user_id != -1||
+   params.scope!= -1){
+    setHistoryList(false)
+   }else{
+    setHistoryList(true)
+   }
+   
+  },[params])
 
   return (
     <Dropdown
@@ -44,17 +60,13 @@ const SearchTop: React.FC = () => {
       placement="bottom"
       dropdownRender={() => (
         <Card title={<ButtonInput />} style={{width: '79.5vw'}}>
-          {params.search_file_name ? <SearchFileName /> : <SearchFileContent />}
+          {historyList?<BeforeSearchHistory />:
+          params.search_file_name ? <SearchFileName /> : <SearchFileContent />}
         </Card>
       )}
     >
       <Input
-        placeholder="通过文件名、正文、创建者搜索文档"
-        // prefix={
-        //   <SearchOutlined
-        //     style={{position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none'}}
-        //   />
-        // }
+        placeholder={params.searchname == ''?"通过文件名、正文、创建者搜索文档":params.searchname}
         onChange={onChange}
         style={{backgroundColor: colorBgContainer}}
       />
