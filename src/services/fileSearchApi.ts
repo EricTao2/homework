@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {FetchFilesParams} from '../types/fileSearchType';
 
 export function fetchFiles(selectParams: FetchFilesParams): Promise<any> {

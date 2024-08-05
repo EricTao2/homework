@@ -24,6 +24,7 @@ const ButtonInput = () => {
   const [selectedCreatorText, setSelectedCreatorText] = useState('');
   const [selectedTimesVisible, setSelectedTimesVisible] = useState(false);
   const [selectedScopeVisible, setSelectedScopeVisible] = useState(false);
+  console.log(selectedCreatorText);
 
   useEffect(() => {
     if (position === 'search_file_name') {

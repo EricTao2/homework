@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Col, List, Row, Spin} from 'antd';
 import {fetchFiles} from '../../services/fileSearchApi';
@@ -28,6 +29,7 @@ const SearchFileName: React.FC = () => {
     });
     localStorage.setItem('browsingHistory', JSON.stringify(browsingHistory));
   };
+  console.log(error);
 
   const loadMoreData = useCallback(
     throttle(async () => {

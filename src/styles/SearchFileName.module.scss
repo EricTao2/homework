@@ -1,17 +1,20 @@
 .listContainer {
   width: 100%;
-  height: 100%;
+  height: 75vh;
   overflow: hidden; /* Hide the horizontal scrollbar */
 }
-
+.loading {
+  height: 75vh;
+}
 .virtualList {
   width: 100%;
-  height: 100%;
-  overflow-y: auto; /* Only show the vertical scrollbar */
+  height: 75vh;
+  overflow-y: auto;
+  overflow-x:hidden /* Only show the vertical scrollbar */
 }
 
 .virtualList::-webkit-scrollbar {
-  width: 6px; /* Make the scrollbar thinner */
+  width: 1px; /* Make the scrollbar thinner */
 }
 
 .virtualList::-webkit-scrollbar-thumb {

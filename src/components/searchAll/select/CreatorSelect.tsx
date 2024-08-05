@@ -13,11 +13,7 @@ interface CreatorSelectComponentProps {
   setSelectedCreatorText: Dispatch<SetStateAction<string>>;
 }
 
-export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({
-  checkedIcon,
-  setSelectedCreatorVisible,
-  setSelectedCreatorText
-}) => {
+export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({checkedIcon, setSelectedCreatorVisible}) => {
   const dispatch: AppDispatch = useDispatch();
   const [selectCreatorData, setSelectCreatorData] = useState(processedCreatorData);
   const [selectedCreator, setSelectedCreator] = useState('all');

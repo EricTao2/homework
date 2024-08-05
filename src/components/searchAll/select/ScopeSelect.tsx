@@ -62,7 +62,7 @@ export const ScopeSelect: React.FC<ScopeSelectComponentProps> = ({checkedIcon, s
         }
         return <span dangerouslySetInnerHTML={{__html: res}} />;
       },
-      onCell: (record: DropdownSelectDataType, index) => {
+      onCell: (record: DropdownSelectDataType, _index) => {
         return {
           onClick: () => {
             record.checked = !record.checked;

@@ -9,6 +9,7 @@ import {fileIconSmall} from '../../assets/fileIconsmall';
 
 const SearchFileContent: React.FC = () => {
   const params = useSelector((state: RootState) => state.fetchFiles);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
