@@ -1,34 +1,33 @@
-  .searchHistoryContainer {
-    background-color: var(--ant-color-bg-container);
-    padding: 1rem; // 20px
-    border-radius: 0.5rem; // 8px
-    height: 65vh;
-  
-    @media (max-width: 768px) {
-      padding: 0.625rem; // 10px
-      height: auto;
-    }
+.searchHistoryContainer {
+  background-color: var(--ant-color-bg-container);
+  padding: 1rem; // 20px
+  border-radius: 0.5rem; // 8px
+  height: 65vh;
+
+  @media (max-width: 768px) {
+    padding: 0.625rem; // 10px
+    height: auto;
   }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem; // 16px
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem; // 16px
+  font-size: 0.875rem; // 14px
+
+  h3 {
+    margin: 0;
     font-size: 0.875rem; // 14px
-  
-    h3 {
-      margin: 0;
-      font-size: 0.875rem; // 14px
-    }
   }
-  
-  .listItem {
-    cursor: pointer;
-    padding: 0.625rem 1.25rem; // 10px 20px
-    border-bottom: none;
-  
-    &:hover {
-      background-color: #f5f5f5;
-    }
+}
+
+.listItem {
+  cursor: pointer;
+  padding: 0.625rem 1.25rem; // 10px 20px
+  border-bottom: none;
+
+  &:hover {
+    background-color: #f5f5f5;
   }
-  
+}

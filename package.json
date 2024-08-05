@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "proxy": "w2 add .whistle.cjs --force",
     "test:ui": "vitest --ui",
-    "test": "vitest run --coverage"
+    "test": "vitest run --coverage",
+    "lint:prettier": "prettier --write \"src/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\" --end-of-line lf ."
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",

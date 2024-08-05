@@ -1,11 +1,11 @@
-import { processedCreatorData } from '../../../assets/creatorData';
+import {processedCreatorData} from '../../../assets/creatorData';
 import DropdownSelectDataType from '../../../types/SelectDataType';
-import type { TableColumnsType } from 'antd';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../store';
-import { Table } from 'antd';
-import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react';
-import { setFetchFilesParams } from '../../../slices/fetchFilesSlice';
+import type {TableColumnsType} from 'antd';
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '../../../store';
+import {Table} from 'antd';
+import React, {Dispatch, SetStateAction, useEffect, useState, useRef} from 'react';
+import {setFetchFilesParams} from '../../../slices/fetchFilesSlice';
 
 interface CreatorSelectComponentProps {
   checkedIcon: string;
@@ -13,7 +13,11 @@ interface CreatorSelectComponentProps {
   setSelectedCreatorText: Dispatch<SetStateAction<string>>;
 }
 
-export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({ checkedIcon, setSelectedCreatorVisible, setSelectedCreatorText }) => {
+export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({
+  checkedIcon,
+  setSelectedCreatorVisible,
+  setSelectedCreatorText
+}) => {
   const dispatch: AppDispatch = useDispatch();
   const [selectCreatorData, setSelectCreatorData] = useState(processedCreatorData);
   const [selectedCreator, setSelectedCreator] = useState('all');
@@ -51,7 +55,7 @@ export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({ checkedIc
         dispatch(setFetchFilesParams(newState));
         break;
       }
-    };
+    }
   }, [selectedCreator]);
 
   const columns: TableColumnsType<DropdownSelectDataType> = [
@@ -62,7 +66,7 @@ export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({ checkedIc
         if (record.checked) {
           res = `${checkedIcon} <div style="float: left; margin-left: 1em;margin-right: 1em">${record.icon}</div> <div style="float: left;">${record.title}</div>`;
         }
-        return <span dangerouslySetInnerHTML={{ __html: res }} />;
+        return <span dangerouslySetInnerHTML={{__html: res}} />;
       },
       onCell: (record: DropdownSelectDataType) => {
         return {
@@ -78,7 +82,7 @@ export const CreatorSelect: React.FC<CreatorSelectComponentProps> = ({ checkedIc
 
   return (
     <Table
-      style={{ cursor: 'pointer' }}
+      style={{cursor: 'pointer'}}
       className="custom-table"
       columns={columns}
       dataSource={processedCreatorData}

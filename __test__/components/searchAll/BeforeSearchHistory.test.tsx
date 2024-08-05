@@ -1,31 +1,30 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import {render, screen, fireEvent} from '@testing-library/react';
+import {Provider} from 'react-redux';
 import BeforeSearchHistory from '../../../src/components/searchAll/BeforeSearchHistory';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { RootState } from '../../../src/slices';
+import {beforeEach, describe, expect, test, vi} from 'vitest';
+import {RootState} from '../../../src/slices';
 import {renderWithProviders} from '../../../src/utils/test-utils';
 
 vi.mock('react-redux', async () => {
-    const actualReactRedux = await vi.importActual('react-redux');
-    return {
-      ...actualReactRedux,
-      useDispatch: vi.fn()
-    };
-  });
-  const mockState: RootState = {
-    fetchFiles: {
-        searchname: '',
-        start_time: -1,
-        include_exts: '',
-        filter_user_id: -1,
-        scope: -1,
-    }
-  } as RootState;
+  const actualReactRedux = await vi.importActual('react-redux');
+  return {
+    ...actualReactRedux,
+    useDispatch: vi.fn()
+  };
+});
+const mockState: RootState = {
+  fetchFiles: {
+    searchname: '',
+    start_time: -1,
+    include_exts: '',
+    filter_user_id: -1,
+    scope: -1
+  }
+} as RootState;
 describe('BeforeSearchHistory', () => {
-
   test('renders search history header', () => {
-    renderWithProviders(<BeforeSearchHistory />)
+    renderWithProviders(<BeforeSearchHistory />);
     expect(screen.getByText('搜索历史')).toBeInTheDocument();
     expect(screen.getByText('清 除')).toBeInTheDocument();
   });
@@ -41,7 +40,7 @@ describe('BeforeSearchHistory', () => {
         start_time: 1620000000,
         include_exts: 'pdf',
         filter_user_id: 1,
-        scope: 2,
+        scope: 2
       },
       {
         sort_by: 'name',
@@ -52,13 +51,13 @@ describe('BeforeSearchHistory', () => {
         start_time: 1620000000,
         include_exts: 'docx',
         filter_user_id: 2,
-        scope: 3,
-      },
+        scope: 3
+      }
     ];
 
     localStorage.setItem('browsingHistory', JSON.stringify(mockHistory));
 
-    renderWithProviders(<BeforeSearchHistory />)
+    renderWithProviders(<BeforeSearchHistory />);
 
     expect(screen.getByText('test1')).toBeInTheDocument();
     expect(screen.getByText('test2')).toBeInTheDocument();
@@ -75,14 +74,13 @@ describe('BeforeSearchHistory', () => {
         start_time: 1620000000,
         include_exts: 'pdf',
         filter_user_id: 1,
-        scope: 2,
-      },
+        scope: 2
+      }
     ];
 
     localStorage.setItem('browsingHistory', JSON.stringify(mockHistory));
 
-    renderWithProviders(<BeforeSearchHistory />)
-    
+    renderWithProviders(<BeforeSearchHistory />);
 
     fireEvent.click(screen.getByText('清 除'));
 

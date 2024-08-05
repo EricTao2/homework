@@ -17,7 +17,6 @@ export const ScopeSelect: React.FC<ScopeSelectComponentProps> = ({checkedIcon, s
   const [selectedScope, setSelectedScope] = useState('all');
   const prevSelectedScope = useRef('');
 
-
   const updateSelectedScope = (name: string) => {
     if (selectedScope === name) return;
     setSelectedScope(() => {
@@ -50,7 +49,7 @@ export const ScopeSelect: React.FC<ScopeSelectComponentProps> = ({checkedIcon, s
         dispatch(setFetchFilesParams(newState));
         break;
       }
-    };
+    }
   }, [selectedScope]);
 
   const columns: TableColumnsType<DropdownSelectDataType> = [
@@ -87,4 +86,4 @@ export const ScopeSelect: React.FC<ScopeSelectComponentProps> = ({checkedIcon, s
   );
 };
 
-export { processedScopeData };
+export {processedScopeData};

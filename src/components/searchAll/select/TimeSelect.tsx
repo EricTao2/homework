@@ -48,7 +48,7 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
         dispatch(setFetchFilesParams(newState));
         break;
       }
-    };
+    }
   }, [selectedTime]);
 
   const columns: TableColumnsType<DropdownSelectDataType> = [
@@ -84,4 +84,4 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
   );
 };
 
-export { processedTimeData };
+export {processedTimeData};

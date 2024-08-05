@@ -1,12 +1,12 @@
 import {defineConfig} from '@playwright/test';
 
 export default defineConfig({
-  testDir: './__ui_tests',
+  testDir: './__uitests__',
   timeout: 30000,
   use: {
     headless: true,
     baseURL: 'https://365.kdocs.cn/zhangjufang/dev/search/',
-    viewport: {width: 1280, height: 720},
+    viewport: {width: 2560, height: 1600},
     actionTimeout: 0,
     trace: 'on',
     launchOptions: {
