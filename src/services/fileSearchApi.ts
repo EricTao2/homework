@@ -57,6 +57,8 @@ export function fetchFiles(selectParams: FetchFilesParams): Promise<any> {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      console.log(333,response);
+      
       return response.json();
     })
     .catch((error) => {

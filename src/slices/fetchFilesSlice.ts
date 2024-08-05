@@ -4,6 +4,7 @@ import {FetchFilesParams} from '../types/fileSearchType';
 
 export const initialState: FetchFilesParams = {
   sort_by: 'time',
+  count:20,
   search_file_content: false,
   search_file_name: true
 };
