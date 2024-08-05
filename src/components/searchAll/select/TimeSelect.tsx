@@ -9,9 +9,10 @@ import {setFetchFilesParams} from '../../../slices/fetchFilesSlice';
 interface TimeSelectComponentProps {
   checkedIcon: string;
   setSelectedTimesVisible: Dispatch<SetStateAction<boolean>>;
+  setCustomedTimeVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, setSelectedTimesVisible}) => {
+export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, setSelectedTimesVisible, setCustomedTimeVisible}) => {
   const dispatch: AppDispatch = useDispatch();
   const [selectTimeData, setSelectTimeData] = useState(processedTimeData);
   const [selectedTime, setSelectedTime] = useState('all');
@@ -28,6 +29,9 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
     if (prevSelectedTime.current === '' || prevSelectedTime.current === selectedTime) {
       prevSelectedTime.current = selectedTime;
       return;
+    }
+    if(selectedTime === 'customedTime'){
+      setCustomedTimeVisible(true);
     }
     prevSelectedTime.current = selectedTime;
     setSelectTimeData((prev) => {

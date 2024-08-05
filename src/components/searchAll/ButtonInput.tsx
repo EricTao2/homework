@@ -8,6 +8,7 @@ import {TimeSelect} from './select/TimeSelect';
 import {ScopeSelect} from './select/ScopeSelect';
 import {CreatorSelect} from './select/CreatorSelect';
 import styles from '../../styles/ButtonInput.module.scss';
+import { CustomedTime } from './select/CustomedTime';
 
 const checkedIcon = `<svg style="float: left" width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke-width="1.5">
   <g id="group-0" stroke="currentColor" fill="currentColor">
@@ -23,6 +24,7 @@ const ButtonInput = () => {
   const [selectedCreatorVisible, setSelectedCreatorVisible] = useState(false);
   const [selectedCreatorText, setSelectedCreatorText] = useState('');
   const [selectedTimesVisible, setSelectedTimesVisible] = useState(false);
+  const [customedTimeVisible, setCustomedTimeVisible] = useState(false);
   const [selectedScopeVisible, setSelectedScopeVisible] = useState(false);
   console.log(selectedCreatorText);
 
@@ -84,9 +86,14 @@ const ButtonInput = () => {
           open={selectedTimesVisible}
           onOpenChange={setSelectedTimesVisible}
           placement="bottomLeft"
-          dropdownRender={() => (
-            <TimeSelect checkedIcon={checkedIcon} setSelectedTimesVisible={setSelectedTimesVisible} />
-          )}
+          dropdownRender={() => {
+            if(!customedTimeVisible){
+              return (
+                <TimeSelect checkedIcon={checkedIcon} setSelectedTimesVisible={setSelectedTimesVisible} setCustomedTimeVisible={setCustomedTimeVisible}/>)
+            } else{
+              return <CustomedTime checkedIcon={checkedIcon} setSelectedTimesVisible={setCustomedTimeVisible} />
+            }
+          }}
         >
           <Button
             className={`${selectedTimesVisible ? styles.antDropdownOpen : ''}`}
