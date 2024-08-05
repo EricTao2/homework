@@ -13,7 +13,7 @@ interface TimeSelectComponentProps {
 
 export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, setSelectedTimesVisible}) => {
   const dispatch: AppDispatch = useDispatch();
-  const [_, setSelectTimeData] = useState(processedTimeData);
+  const [selectTimeData, setSelectTimeData] = useState(processedTimeData);
   const [selectedTime, setSelectedTime] = useState('all');
   const prevSelectedTime = useRef('');
 
@@ -30,12 +30,10 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
       return;
     }
     prevSelectedTime.current = selectedTime;
-    let newState = {};
     setSelectTimeData((prev) => {
       const newSelectTimeData = prev.map((item) => {
         if (selectedTime === item.name) {
           item.checked = true;
-          newState = item.getStateValue ? item.getStateValue() : {};
         } else {
           item.checked = false;
         }
@@ -43,7 +41,14 @@ export const TimeSelect: React.FC<TimeSelectComponentProps> = ({checkedIcon, set
       });
       return newSelectTimeData;
     });
-    dispatch(setFetchFilesParams(newState));
+    for (const item of selectTimeData) {
+      if (selectedTime === item.name) {
+        item.checked = true;
+        const newState = item.getStateValue ? item.getStateValue() : {};
+        dispatch(setFetchFilesParams(newState));
+        break;
+      }
+    };
   }, [selectedTime]);
 
   const columns: TableColumnsType<DropdownSelectDataType> = [
