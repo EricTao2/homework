@@ -1,9 +1,13 @@
-https://365.kdocs.cn/zhangjufang1/lo/search/ http://localhost:5173/
+### vitest单元测试
+测试截图：
 
-https://365.kdocs.cn/@vite/client http://localhost:5173/@vite/client
+![测试结果](./__testImg/vitest.png)
+### playwright ui测试
 
-https://365.kdocs.cn/@react-refresh http://localhost:5173/@react-refresh
+trace.zip跟踪报告：
 
-https://365.kdocs.cn/src http://localhost:5173/src
+![测试结果](./__testImg/uitest_trace.png)
 
-https://365.kdocs.cn/node_modules/ http://localhost:5173/node_modules/
+html测试报告：
+
+![测试结果](./__testImg/uitest_html.png)

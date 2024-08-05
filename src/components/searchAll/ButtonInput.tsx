@@ -8,7 +8,9 @@ import {TimeSelect} from './select/TimeSelect';
 import {ScopeSelect} from './select/ScopeSelect';
 import {CreatorSelect} from './select/CreatorSelect';
 import styles from '../../styles/ButtonInput.module.scss';
-import { CustomedTime } from './select/CustomedTime';
+import {CustomedTime} from './select/CustomedTime';
+import {fileTypedata} from '../../assets/fileTypeData';
+import DropdownSelectDataType from '../../types/SelectDataType';
 
 const checkedIcon = `<svg style="float: left" width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke-width="1.5">
   <g id="group-0" stroke="currentColor" fill="currentColor">
@@ -26,8 +28,46 @@ const ButtonInput = () => {
   const [selectedTimesVisible, setSelectedTimesVisible] = useState(false);
   const [customedTimeVisible, setCustomedTimeVisible] = useState(false);
   const [selectedScopeVisible, setSelectedScopeVisible] = useState(false);
+  const [typeButtonValue, setTypeButtonValue] = useState<DropdownSelectDataType>({
+    title: '类型',
+    name: ''
+  });
   console.log(selectedCreatorText);
 
+  function stringToArray(input: string): string[] {
+    return input.split(',').map((item) => item.trim());
+  }
+  function findTypeChineseName(input: string): DropdownSelectDataType {
+    for (const item of fileTypedata) {
+      if (item.name == input) {
+        return item;
+      }
+    }
+    return fileTypedata[0];
+  }
+  useEffect(() => {
+    if (params.include_ext_groups == undefined) {
+      setTypeButtonValue({
+        title: '类型',
+        name: ''
+      });
+    } else {
+      const ext_arr = stringToArray(params.include_ext_groups);
+      if (ext_arr.length == 1) {
+        const itemType = findTypeChineseName(ext_arr[0]);
+        setTypeButtonValue(itemType);
+      } else {
+        setTypeButtonValue({
+          title: `文件类型${ext_arr.length}`,
+          name: ''
+        });
+      }
+    }
+  }, [params.include_ext_groups]);
+
+  useEffect(() => {
+    console.log('开始button联动', params);
+  }, [params.filter_user_id]);
   useEffect(() => {
     if (position === 'search_file_name') {
       dispatch(setFetchFilesParams({search_file_name: true, search_file_content: false}));
@@ -57,7 +97,12 @@ const ButtonInput = () => {
             size="small"
             disabled={params.search_file_content && params.searchname == ''}
           >
-            类型
+            {typeButtonValue.icon ? (
+              <div className={styles.icon} dangerouslySetInnerHTML={{__html: typeButtonValue.icon}} />
+            ) : (
+              ''
+            )}
+            {typeButtonValue.title}
           </Button>
         </Dropdown>
         <Dropdown
@@ -87,11 +132,16 @@ const ButtonInput = () => {
           onOpenChange={setSelectedTimesVisible}
           placement="bottomLeft"
           dropdownRender={() => {
-            if(!customedTimeVisible){
+            if (!customedTimeVisible) {
               return (
-                <TimeSelect checkedIcon={checkedIcon} setSelectedTimesVisible={setSelectedTimesVisible} setCustomedTimeVisible={setCustomedTimeVisible}/>)
-            } else{
-              return <CustomedTime checkedIcon={checkedIcon} setSelectedTimesVisible={setCustomedTimeVisible} />
+                <TimeSelect
+                  checkedIcon={checkedIcon}
+                  setSelectedTimesVisible={setSelectedTimesVisible}
+                  setCustomedTimeVisible={setCustomedTimeVisible}
+                />
+              );
+            } else {
+              return <CustomedTime checkedIcon={checkedIcon} setSelectedTimesVisible={setCustomedTimeVisible} />;
             }
           }}
         >

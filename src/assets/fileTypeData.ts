@@ -165,7 +165,7 @@ export const fileTypeMapping: Map<string, string[]> = new Map(
   })
 );
 
-const fileTypedata: DropdownSelectDataType[] = [
+export const fileTypedata: DropdownSelectDataType[] = [
   {
     name: 'all',
     icon: `<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke-width="1.5"><g id="group-0" stroke="currentColor" fill="currentColor"><path d="M10.25 6.25003H5.75M13.25 5.12132V12.75C13.25 13.5784 12.5784 14.25 11.75 14.25H4.25C3.42157 14.25 2.75 13.5784 2.75 12.75V3.25C2.75 2.42157 3.42157 1.75 4.25 1.75H9.87868C10.2765 1.75 10.658 1.90804 10.9393 2.18934L12.8107 4.06066C13.092 4.34196 13.25 4.7235 13.25 5.12132Z" stroke-linecap="round" stroke-linejoin="miter" fill="none" vector-effect="non-scaling-stroke"></path></g></svg>`,

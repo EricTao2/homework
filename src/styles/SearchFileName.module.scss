@@ -1,40 +1,71 @@
+$listContainerHeight: 75vh;
+$loadingHeight: 75vh;
+$scrollbarWidth: 6px;
+$borderColor: #f0f0f0;
+$scrollbarThumbColor: rgba(0, 0, 0, 0.2);
+$scrollbarTrackColor: rgba(0, 0, 0, 0.1);
+$hoverColor: #1890ff;
+$fontColor: #666;
+$noMoreFilesFontSize: 1rem;
+$noMoreFilesFontWeight: bold;
+$noMoreFilesColor: gray;
+$padding: 1rem;
+$iconMarginRight: 1rem; // Equivalent to 16px
+
+html {
+  font-size: 62.5%; // 1rem = 10px
+}
+
+body {
+  font-size: 1.6rem; // 16px
+}
+
 .listContainer {
   width: 100%;
-  height: 75vh;
-  overflow: hidden; /* Hide the horizontal scrollbar */
+  height: $listContainerHeight;
+  overflow: hidden; // Hide the horizontal scrollbar
 }
+
 .loading {
-  height: 75vh;
+  height: $loadingHeight;
 }
+
 .virtualList {
   width: 100%;
-  height: 75vh;
   overflow-y: auto;
-  overflow-x:hidden /* Only show the vertical scrollbar */
+  overflow-x: hidden; // Only show the vertical scrollbar
 }
 
 .virtualList::-webkit-scrollbar {
-  width: 6px; /* Make the scrollbar thinner */
+  width: $scrollbarWidth; // Make the scrollbar thinner
 }
 
 .virtualList::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
+  background-color: $scrollbarThumbColor;
+  border-radius: 0.3rem;
 }
 
 .virtualList::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: $scrollbarTrackColor;
 }
 
 .listItem {
   display: flex;
   align-items: center;
-  padding: 1rem;
-  border-bottom: 0.8px solid #f0f0f0;
+  padding: $padding;
+  border-bottom: 0.08rem solid $borderColor;
+
+  @media (max-width: 768px) {
+    padding: 0.8rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.6rem;
+  }
 }
 
 .icon {
-  margin-right: 16px;
+  margin-right: $iconMarginRight;
 }
 
 .link {
@@ -43,25 +74,34 @@
   text-decoration: none;
 
   &:hover {
-    color: #1890ff;
+    color: $hoverColor;
   }
 }
 
 .descriptionRow {
-  display: flex;
+  display: none;
   align-items: center;
-  color: #666;
+  color: $fontColor;
 }
 
-.textRight {
-  text-align: right;
-}
+// .textRight {
+//   text-align: right;
+// }
+
 .noMoreFiles {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-size: 16px;
-  font-weight: bold;
-  color: gray;
+  font-size: $noMoreFilesFontSize;
+  font-weight: $noMoreFilesFontWeight;
+  color: $noMoreFilesColor;
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 }

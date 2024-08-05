@@ -12,7 +12,8 @@ export const initialState: FetchFilesParams = {
   start_time: -1,
   include_exts: '', //根据文件类型搜索
   filter_user_id: -1, //根据创建人搜索
-  scope: -1 //根据文件位置搜索
+  scope: -1, //根据文件位置搜索
+  include_ext_groups: undefined
 };
 
 const fetchFilesSlice = createSlice({

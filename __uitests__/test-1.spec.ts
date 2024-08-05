@@ -1,5 +1,35 @@
 import {test, expect} from '@playwright/test';
 
 test('test', async ({page}) => {
-  // Recording...
+  await page.goto('https://365.kdocs.cn/zhangjufang/dev/search/');
+  await page.getByPlaceholder('通过文件名、正文、创建者搜索文档').click();
+  await page.getByPlaceholder('通过文件名、正文、创建者搜索文档').fill('1');
+  await page.goto('https://365.kdocs.cn/zhangjufang/dev/search/');
+  await page.getByPlaceholder('通过文件名、正文、创建者搜索文档').click();
+  await page.getByPlaceholder('通过文件名、正文、创建者搜索文档').fill('1');
+  await page.getByText('正文').click();
+  await page.getByRole('button', {name: '类型'}).click();
+  await page.getByRole('cell', {name: '智能文档'}).click();
+  await page.getByRole('cell', {name: '表格', exact: true}).click();
+  await page.getByRole('cell', {name: '演示'}).click();
+  await page.getByRole('cell', {name: '不限类型'}).click();
+  await page.getByRole('button', {name: '创建者'}).click();
+  await page.getByRole('cell', {name: '张巨芳（我）'}).click();
+  await page.getByRole('button', {name: '时 间'}).click();
+  await page.getByText('最近1个月').click();
+  await page.getByRole('button', {name: '创建者'}).click();
+  await page.getByText('所有人').click();
+  await page.getByRole('button', {name: '位 置'}).click();
+  await page.getByText('最近', {exact: true}).click();
+  await page.getByRole('button', {name: '位 置'}).click();
+  await page.getByRole('cell', {name: '我发出的文档'}).click();
+  await page.getByText('文件名').click();
+  await page.getByText('正文').click();
+  await page.getByRole('button', {name: '类型'}).click();
+  await page.getByRole('button', {name: '创建者'}).click();
+  await page.getByRole('button', {name: '时 间'}).click();
+  await page.getByText('不限时间').click();
+  await page.getByRole('button', {name: '位 置'}).click();
+  await page.getByText('全部位置').click();
+  await page.getByText('文件名').click();
 });
