@@ -7,4 +7,5 @@ exports.rules = `
 https://365.kdocs.cn/zhangjufang/dev/search/   http://localhost:5173/zhangjufang/dev/search/ 
 $https://365.kdocs.cn/zhangjufang/prod/search/  ${MY_DIST_PATH}/index.html
 https://365.kdocs.cn/zhangjufang/prod/search/  ${MY_DIST_PATH}
+365.kdocs.cn resCookies://wps_sid=V02SG6xEflHN-kGDeQr5_3qKnT1tNEU00a0af9ff005fc48afd
 `;
