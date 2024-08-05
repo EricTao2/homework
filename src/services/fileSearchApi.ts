@@ -39,11 +39,9 @@ export function fetchFiles(selectParams: FetchFilesParams): Promise<any> {
     'sec-fetch-mode': 'cors',
     'sec-fetch-site': 'same-origin',
     'x-kso-app-name': 'web_wpsdocs',
-    'x-kso-platform-type': 'windows',
-    offset: '0',
-    count: '20'
+    'x-kso-platform-type': 'windows'
   };
-  console.log("FetchFilesParams API")
+  console.log('FetchFilesParams API');
   return fetch(url, {
     headers: headers,
     referrer: 'https://365.kdocs.cn/latest',

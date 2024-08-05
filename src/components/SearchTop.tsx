@@ -13,7 +13,7 @@ const SearchTop: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const params = useSelector((state: RootState) => state.fetchFiles);
   const inputRef = useRef<string>('');
-  const [historyList,setHistoryList] = useState<boolean>(true)
+  const [historyList, setHistoryList] = useState<boolean>(true);
 
   const {
     token: {colorBgContainer}
@@ -37,20 +37,20 @@ const SearchTop: React.FC = () => {
     inputRef.current = e.target.value;
     debouncedSearch(e.target.value);
   };
-  useEffect(()=>{
-   console.log("开始做历史啦",params);
-   if(
-    params.searchname !=''||
-   params.start_time != -1 || 
-   params.include_exts !=''||
-   params.filter_user_id != -1||
-   params.scope!= -1){
-    setHistoryList(false)
-   }else{
-    setHistoryList(true)
-   }
-   
-  },[params])
+  useEffect(() => {
+    console.log('开始做历史啦', params);
+    if (
+      params.searchname != '' ||
+      params.start_time != -1 ||
+      params.include_exts != '' ||
+      params.filter_user_id != -1 ||
+      params.scope != -1
+    ) {
+      setHistoryList(false);
+    } else {
+      setHistoryList(true);
+    }
+  }, [params]);
 
   return (
     <Dropdown
@@ -60,13 +60,12 @@ const SearchTop: React.FC = () => {
       placement="bottom"
       dropdownRender={() => (
         <Card title={<ButtonInput />} style={{width: '79.5vw'}}>
-          {historyList?<BeforeSearchHistory />:
-          params.search_file_name ? <SearchFileName /> : <SearchFileContent />}
+          {historyList ? <BeforeSearchHistory /> : params.search_file_name ? <SearchFileName /> : <SearchFileContent />}
         </Card>
       )}
     >
       <Input
-        placeholder={params.searchname == ''?"通过文件名、正文、创建者搜索文档":params.searchname}
+        placeholder={params.searchname == '' ? '通过文件名、正文、创建者搜索文档' : params.searchname}
         onChange={onChange}
         style={{backgroundColor: colorBgContainer}}
       />
