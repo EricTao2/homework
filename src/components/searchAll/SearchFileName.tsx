@@ -77,77 +77,83 @@ const SearchFileName: React.FC = () => {
 
   return (
     <div className={styles.listContainer}>
-      <VirtualList
-        className={styles.virtualList}
-        ref={listRef}
-        height={600}
-        itemCount={data.length + (hasMore ? 1 : 0) + (hasMore ? 0 : 1)} // 增加额外的提示项
-        itemSize={100}
-        width="100%"
-        onItemsRendered={({visibleStopIndex}) => {
-          if (visibleStopIndex >= data.length - 1 && hasMore) {
-            loadMoreData();
-          }
-        }}
-      >
-        {({index, style}) => {
-          const item = data[index];
-          if (!item && hasMore) {
-            return (
-              <Spin tip="加载中...">
-                <div className={styles.loading} />
-              </Spin>
-            );
-          }
+      {loading ? (
+        <Spin tip="加载中...">
+          <div className={styles.loading} />
+        </Spin>
+      ) : (
+        <VirtualList
+          className={styles.virtualList}
+          ref={listRef}
+          height={600}
+          itemCount={data.length + (hasMore ? 1 : 0) + (hasMore ? 0 : 1)} // 增加额外的提示项
+          itemSize={100}
+          width="100%"
+          onItemsRendered={({visibleStopIndex}) => {
+            if (visibleStopIndex >= data.length - 1 && hasMore) {
+              loadMoreData();
+            }
+          }}
+        >
+          {({index, style}) => {
+            const item = data[index];
+            if (!item && hasMore) {
+              return (
+                <Spin tip="加载中...">
+                  <div className={styles.loading} />
+                </Spin>
+              );
+            }
 
-          if (!item && !hasMore) {
+            if (!item && !hasMore) {
+              return (
+                <div style={style} key={index} className={styles.noMoreFiles}>
+                  没有更多文件
+                </div>
+              );
+            }
+
+            const fileExtension = getFileExtension(item.fname);
+            const fileType = findFileType(fileExtension);
             return (
-              <div style={style} key={index} className={styles.noMoreFiles}>
-                没有更多文件
+              <div style={style} key={index}>
+                <List.Item className={styles.listItem}>
+                  <div className={styles.icon} dangerouslySetInnerHTML={{__html: fileIcon[fileType]}} />
+                  <div style={{flex: 1}}>
+                    <div>
+                      <a href={item.link_url} target="_blank" className={styles.link} onClick={handleLinkClick}>
+                        {params.searchname !== undefined && item.highlight?.file_name ? (
+                          <div dangerouslySetInnerHTML={{__html: highlightEmTags(item.highlight.file_name[0])}} />
+                        ) : (
+                          item.fname
+                        )}
+                      </a>
+                    </div>
+                    <div>
+                      <Row className={styles.descriptionRow}>
+                        <Col span={6}>
+                          {item.extra._open !== undefined
+                            ? `你在 ${item.extra._open}打开过`
+                            : item.path !== '与我共享'
+                              ? `你在 ${item.extra._mtime}更新过`
+                              : `${item.creator.name} 在 ${item.extra._mtime}更新过`}
+                        </Col>
+                        <Col span={10}>{item.path === '与我共享' ? '我收到的文件' : item.path}</Col>
+                        <Col span={7} className={styles.textRight}>
+                          {item.path === '与我共享' ? `${item.creator.name} 分享` : `${item.creator.name} 创建`}
+                        </Col>
+                        <Col span={1} className={styles.textRight}>
+                          <MoreOptionsButton />
+                        </Col>
+                      </Row>
+                    </div>
+                  </div>
+                </List.Item>
               </div>
             );
-          }
-
-          const fileExtension = getFileExtension(item.fname);
-          const fileType = findFileType(fileExtension);
-          return (
-            <div style={style} key={index}>
-              <List.Item className={styles.listItem}>
-                <div className={styles.icon} dangerouslySetInnerHTML={{__html: fileIcon[fileType]}} />
-                <div style={{flex: 1}}>
-                  <div>
-                    <a href={item.link_url} target="_blank" className={styles.link} onClick={handleLinkClick}>
-                      {params.searchname !== undefined && item.highlight?.file_name ? (
-                        <div dangerouslySetInnerHTML={{__html: highlightEmTags(item.highlight.file_name[0])}} />
-                      ) : (
-                        item.fname
-                      )}
-                    </a>
-                  </div>
-                  <div>
-                    <Row className={styles.descriptionRow}>
-                      <Col span={6}>
-                        {item.extra._open !== undefined
-                          ? `你在 ${item.extra._open}打开过`
-                          : item.path !== '与我共享'
-                            ? `你在 ${item.extra._mtime}更新过`
-                            : `${item.creator.name} 在 ${item.extra._mtime}更新过`}
-                      </Col>
-                      <Col span={10}>{item.path === '与我共享' ? '我收到的文件' : item.path}</Col>
-                      <Col span={7} className={styles.textRight}>
-                        {item.path === '与我共享' ? `${item.creator.name} 分享` : `${item.creator.name} 创建`}
-                      </Col>
-                      <Col span={1} className={styles.textRight}>
-                        <MoreOptionsButton />
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-              </List.Item>
-            </div>
-          );
-        }}
-      </VirtualList>
+          }}
+        </VirtualList>
+      )}
     </div>
   );
 };

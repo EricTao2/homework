@@ -20,14 +20,9 @@ const SearchTop: React.FC = () => {
   } = theme.useToken();
   const [visible, setVisible] = useState(false);
 
-  const handleVisibleChange = (flag: boolean | ((prevState: boolean) => boolean)) => {
-    setVisible(flag);
-  };
-
   const handleSearch = (value: string) => {
     dispatch(setFetchFilesParams({searchname: value}));
   };
-  // 使用 useCallback 包裹 debounce 函数以防止每次渲染都重新创建
   const debouncedSearch = useCallback(
     debounce((value: string) => handleSearch(value), 200),
     []
@@ -36,6 +31,9 @@ const SearchTop: React.FC = () => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     inputRef.current = e.target.value;
     debouncedSearch(e.target.value);
+  };
+  const handleFocus = () => {
+    setVisible(true);
   };
   useEffect(() => {
     console.log('开始做历史啦', params);
@@ -56,7 +54,7 @@ const SearchTop: React.FC = () => {
     <Dropdown
       trigger={['click']}
       open={visible}
-      onOpenChange={handleVisibleChange}
+      // onOpenChange={handleVisibleChange}
       placement="bottom"
       dropdownRender={() => (
         <Card title={<ButtonInput />} style={{width: '79.5vw'}}>
@@ -66,6 +64,7 @@ const SearchTop: React.FC = () => {
     >
       <Input
         placeholder={params.searchname == '' ? '通过文件名、正文、创建者搜索文档' : params.searchname}
+        onFocus={handleFocus}
         onChange={onChange}
         style={{backgroundColor: colorBgContainer}}
       />

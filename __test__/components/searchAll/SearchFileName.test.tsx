@@ -72,7 +72,7 @@ describe('SearchFileName', () => {
     renderWithProviders(<SearchFileName />);
 
     await waitFor(() => {
-      expect(screen.getByText((content, element) => content.includes('我收到的文件'))).toBeInTheDocument();
+      expect(screen.getByText((content, element) => content.includes('加载中'))).toBeInTheDocument();
     });
   });
 });

@@ -11,7 +11,12 @@ export default defineConfig(({command}) => {
     },
     test: {
       environment: 'jsdom',
-      setupFiles: ['./vitest.setup.ts']
+      setupFiles: ['./vitest.setup.ts'],
+      include: ['__test__/**/*.test.{js,jsx,ts,tsx}'],
+      coverage: {
+        exclude: ['src/assets', 'src/main.tsx', 'src/vite-env.d.ts', 'src/types'],
+        include: ['src/**/*.ts', 'src/**/*.tsx'] // 只包含 src 目录下的文件进行覆盖率计算
+      }
     }
   };
   if (command === 'serve') {
