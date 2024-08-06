@@ -129,7 +129,7 @@ const ButtonInput = () => {
         <Dropdown
           trigger={['click']}
           open={selectedTimesVisible}
-          onOpenChange={setSelectedTimesVisible}
+          onOpenChange={value => {setSelectedTimesVisible(value);setCustomedTimeVisible(false);}}
           placement="bottomLeft"
           dropdownRender={() => {
             if (!customedTimeVisible) {
